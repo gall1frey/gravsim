@@ -70,11 +70,7 @@ And watch your configuration of a solar system come to life!
 
 ### Todo
 1. Draw planet and rocket trails
-<<<<<<< HEAD
 2. ~Create goalPlanet variable in Level (last entry of entities[])~
-=======
-2. Create goalPlanet variable in Level (last entry of entities[])
->>>>>>> dbb3f604edd609e612619d1a336a770358074694
 3. ~Check for collisions~
 4. ~Check if goal reached~
 5. Figure out a system of points
