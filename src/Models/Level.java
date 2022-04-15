@@ -6,6 +6,8 @@ public class Level {
 	protected boolean rocketMove;
 	protected boolean planetsMove;
 	private Physics physics;
+	@SuppressWarnings("unused")
+	private Planet goalPlanet = null;
 
 	public Level(String name, Entity[] objects, boolean rocket_move, boolean planets_move) {
 		this.levelName = name;
@@ -14,6 +16,9 @@ public class Level {
 		this.setRocketMove(rocket_move);
 		this.setPlanetsMove(planets_move);
 		this.physics = Physics.getInstance();
+		if (rocket_move) {
+			this.goalPlanet = (Planet) objects[objects.length-1];
+		}
 	}
 	
 	public void handleAcceleration() {
@@ -46,11 +51,23 @@ public class Level {
 
 	public int update() {
 		// For every object in space, calculate force experienced by it due to every other object in space
+		// if rocket collides 		-> return -1
+		// if rocket reaches goal 	-> return 1
+		// if all smooth 			-> return 0
+		
 		for (int i = 0; i < this.entities.length; i++) {
 			double total_fx = 0;
 			double total_fy = 0;
 			for (int j = 0; j < this.entities.length; j++) {
 				if (i != j) {
+					if (this.rocketMove && i == 0) {
+						if (this.Collision(this.entities[i].position, this.entities[j].position, this.entities[i].radius, this.entities[j].radius)) {
+							if (this.entities[j].name == this.goalPlanet.name) {
+								return 1;
+							}
+							return -1;
+						}
+					}
 					double[] pos1 = physics.auToM(this.entities[i].position);
 					double[] pos2 = physics.auToM(this.entities[j].position);
 					double[] force = physics.gravForce(this.entities[i].mass, this.entities[j].mass, pos1, pos2);
@@ -73,9 +90,14 @@ public class Level {
 			this.entities[i].trail.addPathTravelled(this.entities[i].position);
 			
 		}
-		//	Figure out the score thingy
-		int playerScore = 0;
-		return playerScore;
+		return 0;
+	}
+	
+	public boolean Collision(double[] pos1, double[] pos2, double rad1, double rad2) {
+		if (physics.getDistance(physics.auToM(pos1), physics.auToM(pos2)) <= rad1 + rad2) {
+			return true;
+		}
+		return false;
 	}
 	
 	public float getFuelPercent() {

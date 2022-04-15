@@ -71,8 +71,8 @@ And watch your configuration of a solar system come to life!
 ### Todo
 1. Draw planet and rocket trails
 2. Create goalPlanet variable in Level (last entry of entities[])
-3. Check for collisions
-4. Check if goal reached
+3. ~Check for collisions~
+4. ~Check if goal reached~
 5. Figure out a system of points
 6. Print text on screen
 7. ~Scale up planet sizes with zoom~
@@ -341,6 +341,7 @@ player            (Player)
 level             (Level)
 screen            (gameplayScreen)
 FPS               (int)
+status            (int)
 -------------------------------------
 Methods
 -------------------------------------
@@ -349,6 +350,7 @@ startGameThread
 run
 update
 paintComponent
+Collision
 -------------------------------------
 ```
 #### Main
