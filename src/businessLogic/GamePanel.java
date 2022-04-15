@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
 		Graphics2D g2 = (Graphics2D) g;
 		this.screen.renderBackground(g2,this);
 		if (this.state == gameState.PLAY) {
-			this.playUI.draw(g2, screen, level);
+			this.playUI.draw(g2, screen, level, player);
 		} else if (this.state == gameState.CRASH) {
 			this.msgUI.draw(g2, screenHeight, screenWidth, "FA SCHIFO ESSERE TE!", this.player.getPlayerPoints());
 		} else if (this.state == gameState.MENU) {

@@ -79,6 +79,9 @@ And watch your configuration of a solar system come to life!
 8. Implement scoreboard
 9. Implement menu screen
 10. Create new levels
+11. Update documentation to show all classes
+12. Prettify screens
+13. Move background with pan/zoom if possible
 
 ### Class Design
 #### Models

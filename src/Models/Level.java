@@ -65,6 +65,7 @@ public class Level {
 						int retval = -1;
 						if (this.entities[j].name == this.goalPlanet.name) {
 							retval = 1;
+							thresh = 1.5e10;
 						}
 						if (this.Collision(this.entities[i].position, this.entities[j].position, this.entities[i].radius, this.entities[j].radius,thresh)) {
 							return retval;

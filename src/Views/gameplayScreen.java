@@ -1,6 +1,7 @@
 package Views;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
@@ -109,6 +110,11 @@ public class gameplayScreen {
 
 	public void renderPlayerName(String name, Graphics2D g) {
 		/*TODO: Render name of player on screen*/
+		String name_to_print = name.substring(0, 3).toUpperCase();
+		Color white = new Color(84,244,252);
+		g.setColor(white);
+		g.setFont(new Font("Agency FB", Font.PLAIN, 100));
+		g.drawString(name_to_print, 1100, 700);
 	}
 	
 	public BufferedImage rotate(BufferedImage image, double angle) {
