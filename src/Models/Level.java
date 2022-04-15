@@ -25,13 +25,15 @@ public class Level {
 		//if rocket exists
 		if (this.rocketMove) {
 			Rocket r = (Rocket) entities[0];
-			double[] cur_vel = r.getVel();
-			double vel = physics.newVel(r.forcePerFuelBurnt, r.mass);
-			double theta = physics.getAngle(cur_vel[0],cur_vel[1]);
-			double[] components = physics.getComponents(vel, theta);
-			cur_vel[0] += components[0];
-			cur_vel[1] += components[1];
-			r.accelerateTo(cur_vel);
+			if (r.getFuelPercentage() > 0) {
+				double[] cur_vel = r.getVel();
+				double vel = physics.newVel(r.forcePerFuelBurnt, r.mass);
+				double theta = physics.getAngle(cur_vel[0],cur_vel[1]);
+				double[] components = physics.getComponents(vel, theta);
+				cur_vel[0] += components[0];
+				cur_vel[1] += components[1];
+				r.accelerateTo(cur_vel);
+			}
 		}
 	}
 	
@@ -39,13 +41,15 @@ public class Level {
 		//if rocket exists
 		if (this.rocketMove) {
 			Rocket r = (Rocket) entities[0];
-			double[] cur_vel = r.getVel();
-			double vel = physics.newVel(r.forcePerFuelBurnt, r.mass);
-			double theta = physics.getAngle(cur_vel[0],cur_vel[1]);
-			double[] components = physics.getComponents(vel, theta);
-			cur_vel[0] -= components[0];
-			cur_vel[1] -= components[1];
-			r.accelerateTo(cur_vel);
+			if (r.getFuelPercentage() > 0) {
+				double[] cur_vel = r.getVel();
+				double vel = physics.newVel(r.forcePerFuelBurnt, r.mass);
+				double theta = physics.getAngle(cur_vel[0],cur_vel[1]);
+				double[] components = physics.getComponents(vel, theta);
+				cur_vel[0] -= components[0];
+				cur_vel[1] -= components[1];
+				r.accelerateTo(cur_vel);
+			}
 		}
 	}
 
