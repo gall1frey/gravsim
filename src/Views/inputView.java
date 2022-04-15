@@ -37,4 +37,10 @@ public class inputView {
 		return 0;
 	}
 	
+	public String getPlayerName(Graphics2D g) {
+		/* TODO: Prompt the user for username
+		*/
+		return "ABC";
+	}
+	
 }

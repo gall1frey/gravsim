@@ -12,15 +12,20 @@ public class Rocket extends Entity {
 	public Image rocketSprite;
 	public Image[] rocketSpriteAccelerating = new Image[2];
 	public Image[] rocketSpriteDecelerating = new Image[2];
+	float fuelBurnedPerTime;
+	float forcePerFuelBurnt;
 	
-	public Rocket(double mass, double size, float fuel_percentage, String name, long trail_length) {
+	public Rocket(float fuel_per_time, float force, double mass, double size, float fuel_percentage, String name, long trail_length) {
 		this.mass = mass;
 		this.radius = size;
 		this.name = name;
 		this.position = new double[2];
 		this.velocity = new double[2];
 		this.fuelPercentage = fuel_percentage;
+		this.fuelBurnedPerTime = fuel_per_time;
+		this.forcePerFuelBurnt = force;
 		this.setRocketSprite(name,name,name);
+		this.trail = new Trail();
 		this.trail.setLenOfTrail(trail_length);
 	}
 	
@@ -48,6 +53,13 @@ public class Rocket extends Entity {
 	
 	public void setFuelPercentage(float f) {
 		this.fuelPercentage = f;
+	}
+	
+	public void accelerateTo(double[] new_vel) {
+		if (this.fuelPercentage > this.fuelBurnedPerTime) {
+			this.setFuelPercentage(this.fuelPercentage - this.fuelBurnedPerTime);
+			this.velocity = new_vel;
+		}
 	}
 	
 }

@@ -4,12 +4,12 @@ public class Player {
 	private String playerName;
 	private int playerPoints;
 	private int playerHighScore;
+	private String levelName;
 	
 	public Player() {
 		this.playerName = "Player1";
 		this.playerPoints = 0;
 		this.setPlayerHighScore(0);
-		
 	}
 	
 	public String getPlayerName() {
@@ -26,6 +26,9 @@ public class Player {
 	
 	public void setPlayerPoints(int playerPoints) {
 		this.playerPoints = playerPoints;
+		if (playerPoints > playerHighScore) {
+			this.setPlayerHighScore(playerPoints);
+		}
 	}
 	
 	public int getPlayerHighScore() {
@@ -34,5 +37,13 @@ public class Player {
 
 	public void setPlayerHighScore(int playerHighScore) {
 		this.playerHighScore = playerHighScore;
+	}
+
+	public String getLevelName() {
+		return levelName;
+	}
+
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
 	}
 }

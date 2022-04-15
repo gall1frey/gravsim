@@ -11,30 +11,42 @@ import businessLogic.LevelCatalogue;
 
 public class MainApp {
 
-	public static void main(String[] args)throws IOException {
-		// TODO Auto-generated method stub
-		JFrame window = new JFrame();
+	static boolean exitFlag = false;
+	static JFrame window = new JFrame();
+	
+	public static void main(String[] args)throws IOException {	
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("GravSim");
+
+		while (!exitFlag) {
+			//TODO: implement this.
+			// take input from user
+			// store it in exitFlag
+			// switch condition
+			// switch (exitFlag)
+			// case 1: scoreboard();
+			// case 2: play_game();
+			playGame();
+			break;
+		}
 		
-		// Implement menu logic here 
-		// Menu returns level and player objects
-		
-		// These are sample values to test the rest of the code
+	}
+	
+	private static void playGame() {
 		Player p = new Player();
+		new LevelCatalogue();
 		Level l = LevelCatalogue.levels[0];
-		
+
 		GamePanel gamepanel = new GamePanel(p,l);
 		window.add(gamepanel);
-		
+
 		window.pack();
-		
+
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
-		
+
 		gamepanel.startGameThread();
-		
 	}
 
 }

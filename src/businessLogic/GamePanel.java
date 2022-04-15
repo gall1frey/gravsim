@@ -12,12 +12,12 @@ import Views.gameplayScreen;
 
 
 public class GamePanel extends JPanel implements Runnable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	final int screenWidth = 1280;
 	final int screenHeight = 720;
-	
+
 	keyHandler keyH = new keyHandler();
 
 	Thread gameThread;
@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private Player player;
 	private Level level;
 	private gameplayScreen screen = new gameplayScreen("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\background.png","C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
-	
+
 	int FPS = 60;
 
 	public GamePanel(Player player, Level level) {
@@ -36,15 +36,14 @@ public class GamePanel extends JPanel implements Runnable {
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 	}
-	
+
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
-	
+
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		double drawInterval = 1000000000/FPS;
 		double delta = 0;
 		double lastTime = System.nanoTime();
@@ -63,16 +62,50 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 	}
-	
+
 	public void update() {
 		/* TODO: FILL THIS IN*/
+		//Panning
+		if (this.keyH.wPressed == true) {
+			this.screen.updateOffsetY(-10);
+		}
+		if (this.keyH.aPressed == true) {
+			this.screen.updateOffsetX(-10);
+		}
+		if (this.keyH.sPressed == true) {
+			this.screen.updateOffsetY(10);
+		}
+		if (this.keyH.dPressed == true) {
+			this.screen.updateOffsetX(10);
+		}
+
+		//Zooming
+		if (this.keyH.zInPressed == true) {
+			this.screen.updateScale(10);
+		}
+		if (this.keyH.zOutPressed == true) {
+			this.screen.updateScale(-10);
+		}
+		
+		if (this.keyH.upPressed == true) {
+			this.level.handleAcceleration();
+		}
+		
+		if (this.keyH.downPressed == true) {
+			this.level.handleDeceleration();
+		}
+		
+		// updates level and sets player points
+		this.player.setPlayerPoints(this.level.update());
 	}
-	
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		this.screen.renderBackground(g2);
-		this.screen.renderPlayFrame(g2);
+		this.screen.renderBackground(g2,this);
+		this.screen.renderEntities(this.level.getEntities(),this.level.isRocketMove(),g2,this);
+		this.screen.renderFuelBar(this.level.getFuelPercent(), g2);
+		this.screen.renderPlayFrame(g2,this);
 		g2.dispose();
 	}
 
