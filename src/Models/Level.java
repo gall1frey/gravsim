@@ -61,11 +61,13 @@ public class Level {
 			for (int j = 0; j < this.entities.length; j++) {
 				if (i != j) {
 					if (this.rocketMove && i == 0) {
-						if (this.Collision(this.entities[i].position, this.entities[j].position, this.entities[i].radius, this.entities[j].radius)) {
-							if (this.entities[j].name == this.goalPlanet.name) {
-								return 1;
-							}
-							return -1;
+						double thresh = 1e10;
+						int retval = -1;
+						if (this.entities[j].name == this.goalPlanet.name) {
+							retval = 1;
+						}
+						if (this.Collision(this.entities[i].position, this.entities[j].position, this.entities[i].radius, this.entities[j].radius,thresh)) {
+							return retval;
 						}
 					}
 					double[] pos1 = physics.auToM(this.entities[i].position);
@@ -93,8 +95,9 @@ public class Level {
 		return 0;
 	}
 	
-	public boolean Collision(double[] pos1, double[] pos2, double rad1, double rad2) {
-		if (physics.getDistance(physics.auToM(pos1), physics.auToM(pos2)) <= rad1 + rad2) {
+	public boolean Collision(double[] pos1, double[] pos2, double rad1, double rad2, double thresh) {
+		System.out.println("Level[100]: "+physics.getDistance(physics.auToM(pos1), physics.auToM(pos2))+"\t"+rad1+rad2+thresh);
+		if (physics.getDistance(physics.auToM(pos1), physics.auToM(pos2)) <= rad1 + rad2 + thresh) {
 			return true;
 		}
 		return false;

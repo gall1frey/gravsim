@@ -19,26 +19,7 @@ public class MainApp {
 		window.setResizable(false);
 		window.setTitle("GravSim");
 
-		while (!exitFlag) {
-			//TODO: implement this.
-			// take input from user
-			// store it in exitFlag
-			// switch condition
-			// switch (exitFlag)
-			// case 1: scoreboard();
-			// case 2: play_game();
-			playGame();
-			break;
-		}
-		
-	}
-	
-	private static void playGame() {
-		Player p = new Player();
-		new LevelCatalogue();
-		Level l = LevelCatalogue.levels[0];
-
-		GamePanel gamepanel = new GamePanel(p,l);
+		GamePanel gamepanel = new GamePanel();
 		window.add(gamepanel);
 
 		window.pack();
@@ -47,6 +28,7 @@ public class MainApp {
 		window.setVisible(true);
 
 		gamepanel.startGameThread();
+		
 	}
-
+	
 }
