@@ -78,6 +78,7 @@ And watch your configuration of a solar system come to life!
 7. ~Scale up planet sizes with zoom~
 8. Implement scoreboard
 9. Implement menu screen
+10. Create new levels
 
 ### Class Design
 #### Models
