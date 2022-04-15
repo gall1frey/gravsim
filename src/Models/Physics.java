@@ -85,14 +85,14 @@ public class Physics {
 		return res;
 	}
 	
-	public double mToAu(double km) {
-		return km/astronomicalUnit;
+	public double mToAu(double m) {
+		return m/astronomicalUnit;
 	}
 	
-	public double[] mToAu(double[] km) {
-		double[] res = new double[km.length];
-		for (int i = 0; i < km.length; i++) {
-			res[i] = mToAu(km[i]);
+	public double[] mToAu(double[] m) {
+		double[] res = new double[m.length];
+		for (int i = 0; i < m.length; i++) {
+			res[i] = mToAu(m[i]);
 		}
 		return res;
 	}

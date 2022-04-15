@@ -75,7 +75,7 @@ And watch your configuration of a solar system come to life!
 4. Check if goal reached
 5. Figure out a system of points
 6. Print text on screen
-7. Scale up planet sizes with zoom
+7. ~Scale up planet sizes with zoom~
 8. Implement scoreboard
 9. Implement menu screen
 

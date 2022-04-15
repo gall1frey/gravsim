@@ -16,7 +16,8 @@ public class screenTranslator {
 	
 	public int[] convertPosToPixel(double x, double y, double radius, int offset_x, int offset_y) {
 		/*TODO: diven x and y coords in metres (double), convert to positions on screen*/
-		int new_r = Math.max((int) (radius * physics.getScale()),25);
+		//System.out.println("screenTranslator[19]: "+physics.mToAu(radius) * physics.getScale()*1e16);
+		int new_r = Math.max((int) (physics.mToAu(radius * physics.getScale() * 1e13)),10);
 		int new_x = (int) (physics.auToM(x) * physics.getScale() + offset_x - new_r);
 		int new_y = (int) (physics.auToM(y) * physics.getScale() + offset_y - new_r);
 		//System.out.println("screenTranslator 22: {"+new_x+", "+new_y+", "+new_r+"}");
