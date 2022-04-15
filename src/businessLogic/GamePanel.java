@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private gameplayScreen screen = new gameplayScreen("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\background.png","C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
 
 	int FPS = 60;
+	int status = 0;
 
 	public GamePanel(Player player, Level level) {
 		this.player = player;
@@ -59,6 +60,10 @@ public class GamePanel extends JPanel implements Runnable {
 				update();
 				repaint();
 				delta--;
+			}
+			
+			if (status != 0) {
+				break;
 			}
 		}
 	}
@@ -96,7 +101,8 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		
 		// updates level and sets player points
-		this.player.setPlayerPoints(this.level.update());
+		this.player.setPlayerPoints(0);
+		status = this.level.update();
 	}
 
 	public void paintComponent(Graphics g) {
