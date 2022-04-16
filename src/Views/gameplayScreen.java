@@ -8,6 +8,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Transparency;
+import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import Models.Entity;
 import Models.Physics;
 import Models.Planet;
 import Models.Rocket;
+import Models.Trail;
 import businessLogic.GamePanel;
 
 public class gameplayScreen {
@@ -38,9 +40,17 @@ public class gameplayScreen {
 	screenTranslator st_instance = new screenTranslator();
 	public Physics physics = Physics.getInstance();
 
-	public gameplayScreen(String background_path, String playframe_path) {
+	public gameplayScreen(String background_path) {
 		try {
 			background = ImageIO.read(new File(background_path));
+			//playFrame = ImageIO.read(new File(playframe_path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void setPlayFrame(String playframe_path ) {
+		try {
 			playFrame = ImageIO.read(new File(playframe_path));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -86,12 +96,14 @@ public class gameplayScreen {
 		if (rocket_exists) {
 			for (int i = 1; i < entities_list.length; i++) {
 				Planet p = (Planet) entities_list[i];
+				renderTrail(p.trail, g);
 				Image image_to_render = p.getPlanetSprite();
 				int[] position = st_instance.convertPosToPixel(p.getPos()[0], p.getPos()[1], p.radius, offsetX, offsetY);
 				//g.drawImage(image_to_render,position[0],position[1],null);
 				g.drawImage(image_to_render, position[0], position[1], position[2]*2, position[2]*2, observer);
 			}
 			Rocket r = (Rocket) entities_list[0];
+			renderTrail(r.trail, g);
 			Image rocket_img = rotate((BufferedImage) r.rocketSprite,physics.getAngle(r.getVel()[0], r.getVel()[1])+Math.PI/2);
 			int[] rocket_pos = st_instance.convertPosToPixel(r.getPos()[0], r.getPos()[1], r.radius, offsetX, offsetY);
 			//TODO: rocket acceleration animation 
@@ -100,11 +112,31 @@ public class gameplayScreen {
 		} else {
 			for (int i = 0; i < entities_list.length; i++) {
 				Planet p = (Planet) entities_list[i];
+				renderTrail(p.trail, g);
 				Image image_to_render = p.getPlanetSprite();
 				int[] position = st_instance.convertPosToPixel(p.getPos()[0], p.getPos()[1], p.radius, offsetX, offsetY);
 				g.drawImage(image_to_render, position[0], position[1], position[2]*2, position[2]*2, observer);
 			}
 		}
+	}
+	
+	public void renderTrail(Trail t, Graphics2D g) {
+		int[] x = new int[t.pathTravelled.size()];
+		int[] y = new int[t.pathTravelled.size()];
+		for (int i = 0; i < t.pathTravelled.size(); i++) {
+            double[] tmp = t.pathTravelled.get(i);
+            int[] tmp2 = new int[2];
+            tmp2 = st_instance.convertPosToPixel(tmp[0], tmp[1], 2, offsetX, offsetY);
+            x[i] = tmp2[0];
+            y[i] = tmp2[1];
+        }
+		Path2D polyline = new Path2D.Double();
+        polyline.moveTo(x[0], y[0]);
+        for (int i = 1; i < x.length-1; i+=50) {
+             polyline.lineTo(x[i], y[i]);
+        }
+        g.draw(polyline);
+		//g.drawPolyline(x, y, x.length-1);
 	}
 
 	public void renderPlayFrame(Graphics2D g, GamePanel observer) {
@@ -118,12 +150,20 @@ public class gameplayScreen {
 		g.setFont(new Font("Agency FB", Font.PLAIN, 100));
 		g.drawString(name_to_print, 1100, 700);
 	}
+
+	public void renderCreativeDetail(float time, Graphics2D g) {
+		time = physics.getRealWorldTime(time);
+		String timeString = String.format("%.2f", time);
+		g.setColor(cyan);
+		g.setFont(new Font("Agency FB", Font.PLAIN, 50));
+		g.drawString(timeString,533,80);
+	}
 	
 	public void renderPlayDetails(double vel, double dist_travelled, double dist_togo, float time, int points, Graphics2D g) {
 		String velString = String.format("%.2f",vel/1000);// + "km/s";
 		String toGoString = String.format("%.0f",dist_togo/1e9);
 		String travelledString = String.format("%04.0f",dist_travelled/1e9);
-		time = (float)((Physics.timestep * 60 * time) / (3600*365.25*1000 * 25));
+		time = physics.getRealWorldTime(time);
 		String timeString = String.format("%.2f", time);
 		String pointString = String.format("%05d", points);
 		String velUnits = "km/s";

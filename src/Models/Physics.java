@@ -17,6 +17,10 @@ public class Physics {
 		setScale(scaleFactor/astronomicalUnit);
 	}
 	
+	public float getRealWorldTime(float timeInMs) {
+		return (float)((timestep * 60 * timeInMs) / (3600*365.25*1000 * 25));
+	}
+	
 	public static Physics getInstance() {
 		if (physics_instance == null) {
 			physics_instance = new Physics();

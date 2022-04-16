@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private Player player;
 	private Level level;
-	private gameplayScreen screen = new gameplayScreen("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\background.png","C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
+	private gameplayScreen screen = new gameplayScreen("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\background.png");
 	public enum gameState { PLAY, WIN, CRASH, SCOREBOARD, MENU, USER_MENU, CREATIVE, EXIT };
 	private gameState state = gameState.USER_MENU;
 	
@@ -252,6 +252,8 @@ public class GamePanel extends JPanel implements Runnable {
 		this.level = l;
 		System.out.println("GamePanel[150]: "+level.getLevelName());
 		this.state = gameState.PLAY;
+		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
+		//TODO: Create a new playFrame for creative mode
 	}
 
 }

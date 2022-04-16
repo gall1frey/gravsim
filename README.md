@@ -69,8 +69,8 @@ And watch your configuration of a solar system come to life!
 * Unit of angle across the project is **radians**.
 
 ### Todo
-1. Draw planet and rocket trails
-2. ~Create goalPlanet variable in Level (last entry of entities[])~
+1. Draw planet and rocket trails **--> NOT WORKING, I GIVE UP!**
+2. Refactor code into proper classes
 3. ~Check for collisions~
 4. ~Check if goal reached~
 5. ~Figure out a system of points!

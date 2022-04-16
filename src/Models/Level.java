@@ -105,7 +105,7 @@ public class Level {
 	}
 	
 	public boolean Collision(double[] pos1, double[] pos2, double rad1, double rad2, double thresh) {
-		System.out.println("Level[100]: "+physics.getDistance(physics.auToM(pos1), physics.auToM(pos2))+"\t"+rad1+rad2+thresh);
+		//System.out.println("Level[100]: "+physics.getDistance(physics.auToM(pos1), physics.auToM(pos2))+"\t"+rad1+rad2+thresh);
 		if (physics.getDistance(physics.auToM(pos1), physics.auToM(pos2)) <= rad1 + rad2 + thresh) {
 			return true;
 		}
