@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import Controllers.keyHandler;
 import Models.Level;
 import Models.Player;
+import UI.CreativeUI;
 import UI.MessageUI;
 import UI.PlayGameUI;
 import Views.gameplayScreen;
@@ -27,11 +28,12 @@ public class GamePanel extends JPanel implements Runnable {
 	private Player player;
 	private Level level;
 	private gameplayScreen screen = new gameplayScreen("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\background.png","C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
-	public enum gameState { PLAY, WIN, CRASH, SCOREBOARD, MENU, USER_MENU };
+	public enum gameState { PLAY, WIN, CRASH, SCOREBOARD, MENU, USER_MENU, CREATIVE, EXIT };
 	private gameState state = gameState.USER_MENU;
 	
 	private PlayGameUI playUI = PlayGameUI.getInstance();
 	private MessageUI msgUI   = MessageUI.getInstance();
+	private CreativeUI creativeUI   = CreativeUI.getInstance();
 
 	int FPS = 60;
 
@@ -71,8 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void update() {
-		/* TODO: FILL THIS IN*/
-		if (this.state == gameState.PLAY) {
+		if (this.state == gameState.PLAY || this.state == gameState.CREATIVE) {
 			handlePlayKeypress();
 		} else if (this.state == gameState.SCOREBOARD) {
 			handleScoreboardKeypress();
@@ -84,6 +85,8 @@ public class GamePanel extends JPanel implements Runnable {
 			handleCrashKeypress();
 		} else if (this.state == gameState.WIN) {
 			handleWinKeypress();
+		} else if (this.state == gameState.EXIT) {
+			handleExit();
 		}
 	}
 
@@ -94,7 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
 		if (this.state == gameState.PLAY) {
 			this.playUI.draw(g2, screen, level, player);
 		} else if (this.state == gameState.CRASH) {
-			this.msgUI.draw(g2, screenHeight, screenWidth, "FA SCHIFO ESSERE TE!", this.player.getPlayerPoints());
+			this.msgUI.draw(g2, screenHeight, screenWidth, false, this.player);
 		} else if (this.state == gameState.MENU) {
 			//TODO: refer line 92, do something like that
 			showMenu();
@@ -105,7 +108,9 @@ public class GamePanel extends JPanel implements Runnable {
 			//TODO: refer line 92, do something like that
 			showScoreboard();
 		} else if (this.state == gameState.WIN) {
-			this.msgUI.draw(g2, screenHeight, screenWidth, "GG SIR!", this.player.getPlayerPoints());
+			this.msgUI.draw(g2, screenHeight, screenWidth, true, this.player);
+		} else if (this.state == gameState.CREATIVE) {
+			this.creativeUI.draw(g2, screen, level);
 		}
 		g2.dispose();
 	}
@@ -141,6 +146,10 @@ public class GamePanel extends JPanel implements Runnable {
 			this.level.handleDeceleration();
 		}
 		
+		if (this.keyH.mPressed == true) {
+			this.state = gameState.MENU;
+		}
+		
 		// updates level and sets player points
 		this.player.setPlayerPoints(0);
 		int res = this.level.update();
@@ -168,7 +177,7 @@ public class GamePanel extends JPanel implements Runnable {
 		// X pressed = quit
 		// M pressed = menu
 		if (this.keyH.xPressed == true) {
-			this.state = gameState.MENU;
+			this.state = gameState.EXIT;
 			// change this to exit ig
 		}
 		if (this.keyH.mPressed == true) {
@@ -176,12 +185,16 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 
+	public void handleExit() {
+		System.exit(0);
+	}
+	
 	private void handleCrashKeypress() {
 		// TODO Auto-generated method stub
 		// X pressed = quit
 		// M pressed = menu
 		if (this.keyH.xPressed == true) {
-			this.state = gameState.MENU;
+			this.state = gameState.EXIT;
 			// change this to exit ig
 		}
 		if (this.keyH.mPressed == true) {

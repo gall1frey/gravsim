@@ -29,6 +29,9 @@ public class gameplayScreen {
 	private int fuelBary = 670;
 	private int fuelBarHeight = 30;
 
+	private Color cyan = new Color(84,244,252);
+	private Color red = new Color(224, 0, 37);
+	
 	Image background;
 	Image playFrame;
 	
@@ -51,9 +54,9 @@ public class gameplayScreen {
 	public void renderFuelBar(float fuelBarPercent, Graphics2D g) {
 		/*TODO: draw the fuel bar*/
 		if (fuelBarPercent <= 10) {
-			g.setColor(new Color(224, 0, 37));
+			g.setColor(red);
 		} else {
-			g.setColor(new Color(82, 243, 255));
+			g.setColor(cyan);
 		}
 		g.fillRect(fuelBarx, fuelBary, (int) (fuelBarPercent*fuelBarLen/100), fuelBarHeight);
 	}
@@ -111,7 +114,6 @@ public class gameplayScreen {
 	public void renderPlayerName(String name, Graphics2D g) {
 		/*TODO: Render name of player on screen*/
 		String name_to_print = name.substring(0, 3).toUpperCase();
-		Color cyan = new Color(84,244,252);
 		g.setColor(cyan);
 		g.setFont(new Font("Agency FB", Font.PLAIN, 100));
 		g.drawString(name_to_print, 1100, 700);
@@ -123,7 +125,6 @@ public class gameplayScreen {
 		String travelledString = String.format("%.0f",dist_travelled/1e9);
 		String velUnits = "km/s";
 		String distUnits = "M km";
-		Color cyan = new Color(84,244,252);
 		g.setColor(cyan);
 		g.setFont(new Font("Agency FB", Font.PLAIN, 50));
 		g.drawString(velString, 15, 80);

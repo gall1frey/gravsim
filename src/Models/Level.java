@@ -90,15 +90,7 @@ public class Level {
 			this.entities[i].velocity[1] += physics.newVel(total_fy, this.entities[i].mass);
 			
 			// update dist+travelled
-			if (this.rocketMove && i == 0) {
-				double[] old_pos = this.entities[i].position;
-				double[] new_pos = new double[2];
-				new_pos[0] = physics.newPos(this.entities[i].velocity[0]);
-				new_pos[1] = physics.newPos(this.entities[i].velocity[1]);
-				double dist_travelled = physics.getDistance(old_pos, new_pos);
-				Rocket r = (Rocket) this.entities[i];
-				r.updateDistTravelled(dist_travelled);
-			}
+			this.updateDistTravelled(this.entities[i]);
 			
 			// Use velocity to calculate updated position
 			this.entities[i].position[0] += physics.mToAu(physics.newPos(this.entities[i].velocity[0]));
@@ -177,6 +169,18 @@ public class Level {
 			//return Math.sqrt(Math.pow(v[0],2)+Math.pow(v[0],2));
 		}
 		return 0.0;
+	}
+	
+	public void updateDistTravelled(Entity e) {
+		if (this.rocketMove && e.getClass() == Rocket.class) {
+			double[] old_pos = e.position;
+			double[] new_pos = new double[2];
+			new_pos[0] = physics.newPos(e.velocity[0]);
+			new_pos[1] = physics.newPos(e.velocity[1]);
+			double dist_travelled = physics.getDistance(old_pos, new_pos);
+			Rocket r = (Rocket) e;
+			r.updateDistTravelled(dist_travelled);
+		}
 	}
 	
 	public double getDistTravelled() {

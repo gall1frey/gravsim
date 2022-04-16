@@ -80,8 +80,9 @@ And watch your configuration of a solar system come to life!
 9. Implement menu screen
 10. Create new levels
 11. Update documentation to show all classes
-12. Prettify screens
+12. ~Prettify screens~
 13. Move background with pan/zoom if possible
+14. Set a timeout for loss
 
 ### Class Design
 #### Models
