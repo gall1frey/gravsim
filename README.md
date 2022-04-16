@@ -73,7 +73,7 @@ And watch your configuration of a solar system come to life!
 2. ~Create goalPlanet variable in Level (last entry of entities[])~
 3. ~Check for collisions~
 4. ~Check if goal reached~
-5. Figure out a system of points
+5. ~Figure out a system of points!
 6. ~Print text on screen~
 7. ~Scale up planet sizes with zoom~
 8. Implement scoreboard
@@ -82,7 +82,7 @@ And watch your configuration of a solar system come to life!
 11. Update documentation to show all classes
 12. ~Prettify screens~
 13. Move background with pan/zoom if possible
-14. Set a timeout for loss
+14. ~Set a timeout for loss~
 
 ### Class Design
 #### Models

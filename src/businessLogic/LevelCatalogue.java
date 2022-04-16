@@ -11,7 +11,7 @@ public class LevelCatalogue {
 	
 	private void addLevel(String name, Entity[] objects, boolean rocket_move, boolean planets_move) {
 		if (levCount < 10) {
-			Level l = new Level(name, objects, rocket_move, planets_move);
+			Level l = new Level(name, objects, rocket_move, planets_move,50000);
 			levels[levCount] = l;
 			levCount += 1;
 		}

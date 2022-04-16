@@ -119,20 +119,27 @@ public class gameplayScreen {
 		g.drawString(name_to_print, 1100, 700);
 	}
 	
-	public void renderPlayDetails(double vel, double dist_travelled, double dist_togo, Graphics2D g) {
+	public void renderPlayDetails(double vel, double dist_travelled, double dist_togo, float time, int points, Graphics2D g) {
 		String velString = String.format("%.2f",vel/1000);// + "km/s";
 		String toGoString = String.format("%.0f",dist_togo/1e9);
-		String travelledString = String.format("%.0f",dist_travelled/1e9);
+		String travelledString = String.format("%04.0f",dist_travelled/1e9);
+		time = (float)((Physics.timestep * 60 * time) / (3600*365.25*1000 * 25));
+		String timeString = String.format("%.2f", time);
+		String pointString = String.format("%05d", points);
 		String velUnits = "km/s";
 		String distUnits = "M km";
+		String timeUnits = "yrs";
 		g.setColor(cyan);
 		g.setFont(new Font("Agency FB", Font.PLAIN, 50));
 		g.drawString(velString, 15, 80);
-		g.drawString(toGoString, 275, 80);
-		g.drawString(travelledString, 1110, 80);
+		g.drawString(toGoString, 1110, 80);
+		g.drawString(timeString,533,80);
+		g.drawString(travelledString, 275, 80);
+		g.drawString(pointString, 943, 660);
 		g.setFont(new Font("Agency FB", Font.PLAIN, 20));
 		g.drawString(velUnits, 100, 80);
 		g.drawString(distUnits, 380, 80);
+		g.drawString(timeUnits, 613, 80);
 		g.drawString(distUnits, 1180, 80);
 	}
 	

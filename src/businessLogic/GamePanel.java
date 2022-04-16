@@ -73,7 +73,8 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void update() {
-		if (this.state == gameState.PLAY || this.state == gameState.CREATIVE) {
+		if (this.state == gameState.PLAY) {
+			handleCommonPlayKeypress();
 			handlePlayKeypress();
 		} else if (this.state == gameState.SCOREBOARD) {
 			handleScoreboardKeypress();
@@ -87,6 +88,9 @@ public class GamePanel extends JPanel implements Runnable {
 			handleWinKeypress();
 		} else if (this.state == gameState.EXIT) {
 			handleExit();
+		} else if (this.state == gameState.CREATIVE) {
+			handleCommonPlayKeypress();
+			handleCreativeKeypress();
 		}
 	}
 
@@ -115,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.dispose();
 	}
 	
-	private void handlePlayKeypress() {
+	private void handleCommonPlayKeypress() {
 		//Panning
 		if (this.keyH.wPressed == true) {
 			this.screen.updateOffsetY(-10);
@@ -150,14 +154,26 @@ public class GamePanel extends JPanel implements Runnable {
 			this.state = gameState.MENU;
 		}
 		
-		// updates level and sets player points
-		this.player.setPlayerPoints(0);
+		if (this.keyH.xPressed == true) {
+			this.state = gameState.EXIT;
+		}		
+	}
+	
+	private void handlePlayKeypress() {
 		int res = this.level.update();
+		this.player.setPlayerPoints((int)((this.level.getTimeAllowed() - this.player.getTimePlayed())/100));
 		if (res == -1) {
 			this.state = gameState.CRASH;
 		} else if (res == 1) {
 			this.state = gameState.WIN;
 		}
+		if (this.player.updateTimePlayed() > this.level.getTimeAllowed()) {
+			this.state = gameState.CRASH;
+		}
+	}
+
+	private void handleCreativeKeypress() {
+		this.level.update();
 	}
 	
 	private void handleScoreboardKeypress() {
@@ -176,6 +192,7 @@ public class GamePanel extends JPanel implements Runnable {
 		// TODO Auto-generated method stub
 		// X pressed = quit
 		// M pressed = menu
+		this.player.setPlayerHighScore();
 		if (this.keyH.xPressed == true) {
 			this.state = gameState.EXIT;
 			// change this to exit ig

@@ -8,13 +8,15 @@ public class Level {
 	private Physics physics;
 	@SuppressWarnings("unused")
 	private Planet goalPlanet = null;
+	private long timeAllowed; // in milliseconds
 
-	public Level(String name, Entity[] objects, boolean rocket_move, boolean planets_move) {
+	public Level(String name, Entity[] objects, boolean rocket_move, boolean planets_move, long timeAllowed) {
 		this.levelName = name;
 		// First entity is rocket. Rest are planets.
 		this.setEntities(objects);
 		this.setRocketMove(rocket_move);
 		this.setPlanetsMove(planets_move);
+		this.setTimeAllowed(timeAllowed);
 		this.physics = Physics.getInstance();
 		if (rocket_move) {
 			this.goalPlanet = (Planet) objects[objects.length-1];
@@ -58,7 +60,6 @@ public class Level {
 		// if rocket collides 		-> return -1
 		// if rocket reaches goal 	-> return 1
 		// if all smooth 			-> return 0
-		
 		for (int i = 0; i < this.entities.length; i++) {
 			double total_fx = 0;
 			double total_fy = 0;
@@ -165,8 +166,6 @@ public class Level {
 			double[] planetPos = p.getPos();
 			double dist = physics.getDistance(physics.auToM(planetPos), physics.auToM(rocketPos));
 			return dist;
-			//double[] v = r.getVel();
-			//return Math.sqrt(Math.pow(v[0],2)+Math.pow(v[0],2));
 		}
 		return 0.0;
 	}
@@ -189,5 +188,13 @@ public class Level {
 			return r.distTravelled;
 		}
 		return 0.0;
+	}
+
+	public long getTimeAllowed() {
+		return timeAllowed;
+	}
+
+	public void setTimeAllowed(long timeAllowed) {
+		this.timeAllowed = timeAllowed;
 	}
 }
