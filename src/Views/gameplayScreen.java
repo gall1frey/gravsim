@@ -111,10 +111,28 @@ public class gameplayScreen {
 	public void renderPlayerName(String name, Graphics2D g) {
 		/*TODO: Render name of player on screen*/
 		String name_to_print = name.substring(0, 3).toUpperCase();
-		Color white = new Color(84,244,252);
-		g.setColor(white);
+		Color cyan = new Color(84,244,252);
+		g.setColor(cyan);
 		g.setFont(new Font("Agency FB", Font.PLAIN, 100));
 		g.drawString(name_to_print, 1100, 700);
+	}
+	
+	public void renderPlayDetails(double vel, double dist_travelled, double dist_togo, Graphics2D g) {
+		String velString = String.format("%.2f",vel/1000);// + "km/s";
+		String toGoString = String.format("%.0f",dist_togo/1e9);
+		String travelledString = String.format("%.0f",dist_travelled/1e9);
+		String velUnits = "km/s";
+		String distUnits = "M km";
+		Color cyan = new Color(84,244,252);
+		g.setColor(cyan);
+		g.setFont(new Font("Agency FB", Font.PLAIN, 50));
+		g.drawString(velString, 15, 80);
+		g.drawString(toGoString, 275, 80);
+		g.drawString(travelledString, 1110, 80);
+		g.setFont(new Font("Agency FB", Font.PLAIN, 20));
+		g.drawString(velUnits, 100, 80);
+		g.drawString(distUnits, 380, 80);
+		g.drawString(distUnits, 1180, 80);
 	}
 	
 	public BufferedImage rotate(BufferedImage image, double angle) {

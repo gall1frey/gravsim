@@ -14,6 +14,7 @@ public class Rocket extends Entity {
 	public Image[] rocketSpriteDecelerating = new Image[2];
 	float fuelBurnedPerTime;
 	float forcePerFuelBurnt;
+	double distTravelled;
 	
 	public Rocket(float fuel_per_time, float force, double mass, double size, float fuel_percentage, String name, long trail_length) {
 		this.mass = mass;
@@ -27,6 +28,11 @@ public class Rocket extends Entity {
 		this.setRocketSprite(name,name,name);
 		this.trail = new Trail();
 		this.trail.setLenOfTrail(trail_length);
+		this.distTravelled = 0.0;
+	}
+	
+	public void updateDistTravelled(double newDist) {
+		this.distTravelled += newDist;
 	}
 	
 	public void setRocketSprite(String sprite, String accelerating_sprite, String decelerating_sprite) {

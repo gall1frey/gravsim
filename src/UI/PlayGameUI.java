@@ -22,6 +22,7 @@ public class PlayGameUI {
 		screen.renderEntities(level.getEntities(),level.isRocketMove(),g2,null);
 		screen.renderFuelBar(level.getFuelPercent(), g2);
 		screen.renderPlayerName(player.getPlayerName(),g2);
+		screen.renderPlayDetails(level.getRocketVel(),level.getDistToGo(),level.getDistTravelled(),g2);
 		screen.renderPlayFrame(g2,null);
 	}
 }
