@@ -92,16 +92,18 @@ public class Level {
 			
 			// update dist+travelled
 			this.updateDistTravelled(this.entities[i]);
-			
+						
 			// Use velocity to calculate updated position
 			this.entities[i].position[0] += physics.mToAu(physics.newPos(this.entities[i].velocity[0]));
 			this.entities[i].position[1] += physics.mToAu(physics.newPos(this.entities[i].velocity[1]));
-			
-			// Add position to pathTravelled
-			this.entities[i].trail.addPathTravelled(this.entities[i].position);
-			
+
+			addTrail(this.entities[i]);
 		}
 		return 0;
+	}
+	
+	public void addTrail(Entity e) {
+		//TODO: Fill this in
 	}
 	
 	public boolean Collision(double[] pos1, double[] pos2, double rad1, double rad2, double thresh) {
@@ -172,7 +174,7 @@ public class Level {
 	
 	public void updateDistTravelled(Entity e) {
 		if (this.rocketMove && e.getClass() == Rocket.class) {
-			double[] old_pos = e.position;
+		double[] old_pos = e.position;
 			double[] new_pos = new double[2];
 			new_pos[0] = physics.newPos(e.velocity[0]);
 			new_pos[1] = physics.newPos(e.velocity[1]);

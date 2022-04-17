@@ -121,21 +121,33 @@ public class gameplayScreen {
 	}
 	
 	public void renderTrail(Trail t, Graphics2D g) {
-		int[] x = new int[t.pathTravelled.size()];
-		int[] y = new int[t.pathTravelled.size()];
-		for (int i = 0; i < t.pathTravelled.size(); i++) {
-            double[] tmp = t.pathTravelled.get(i);
-            int[] tmp2 = new int[2];
-            tmp2 = st_instance.convertPosToPixel(tmp[0], tmp[1], 2, offsetX, offsetY);
-            x[i] = tmp2[0];
-            y[i] = tmp2[1];
-        }
+		// This function works. Setting the trail is the problem.
+		g.setColor(cyan);
+		if (t.pathTravelled.size() >= 2) {
+			int[] x = new int[t.pathTravelled.size()];
+			int[] y = new int[t.pathTravelled.size()];
+			for (int i = 0; i < t.pathTravelled.size(); i++) {
+	            double[] tmp = t.pathTravelled.get(i);
+	            int[] tmp2 = new int[2];
+	            tmp2 = st_instance.convertPosToPixel(tmp[0], tmp[1], 2, offsetX, offsetY);
+	            x[i] = tmp2[0];
+	            y[i] = tmp2[1];
+	        }
+			Path2D polyline = new Path2D.Double();
+	        polyline.moveTo(x[0], y[0]);
+	        for (int i = 1; i < x.length-1; i+=1) {
+	             polyline.lineTo(x[i], y[i]);
+	        }
+	        g.draw(polyline);
+		}
+		/*int[] x = new int[] {10,20,30,40,50,60,70,80,90,100,110,120,130,140,150};
+		int[] y = new int[] {20,30,50,70,110,170,190,230,290,310,370,410,430,470,530};
 		Path2D polyline = new Path2D.Double();
         polyline.moveTo(x[0], y[0]);
-        for (int i = 1; i < x.length-1; i+=50) {
+        for (int i = 1; i < x.length-1; i+=1) {
              polyline.lineTo(x[i], y[i]);
         }
-        g.draw(polyline);
+        g.draw(polyline);*/
 		//g.drawPolyline(x, y, x.length-1);
 	}
 

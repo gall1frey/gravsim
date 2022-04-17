@@ -34,6 +34,10 @@ public class GamePanel extends JPanel implements Runnable {
 	private PlayGameUI playUI = PlayGameUI.getInstance();
 	private MessageUI msgUI   = MessageUI.getInstance();
 	private CreativeUI creativeUI   = CreativeUI.getInstance();
+	
+	private PlayHandler playHandler = PlayHandler.getInstance();
+	private CreativeHandler creativeHandler = CreativeHandler.getInstance();
+	private ScoreboardHandler scoreboardHandler = ScoreboardHandler.getInstance();
 
 	int FPS = 60;
 
@@ -75,9 +79,9 @@ public class GamePanel extends JPanel implements Runnable {
 	public void update() {
 		if (this.state == gameState.PLAY) {
 			handleCommonPlayKeypress();
-			handlePlayKeypress();
+			this.state = playHandler.handlePlay(level, player, state);
 		} else if (this.state == gameState.SCOREBOARD) {
-			handleScoreboardKeypress();
+			this.state = scoreboardHandler.handleScoreboard(keyH, state);
 		} else if (this.state == gameState.MENU) {
 			handleMenuKeypress();
 		} else if (this.state == gameState.USER_MENU) {
@@ -90,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
 			handleExit();
 		} else if (this.state == gameState.CREATIVE) {
 			handleCommonPlayKeypress();
-			handleCreativeKeypress();
+			creativeHandler.handleCreative(level);
 		}
 	}
 
@@ -157,35 +161,6 @@ public class GamePanel extends JPanel implements Runnable {
 		if (this.keyH.xPressed == true) {
 			this.state = gameState.EXIT;
 		}		
-	}
-	
-	private void handlePlayKeypress() {
-		int res = this.level.update();
-		this.player.setPlayerPoints((int)((this.level.getTimeAllowed() - this.player.getTimePlayed())/100));
-		if (res == -1) {
-			this.state = gameState.CRASH;
-		} else if (res == 1) {
-			this.state = gameState.WIN;
-		}
-		if (this.player.updateTimePlayed() > this.level.getTimeAllowed()) {
-			this.state = gameState.CRASH;
-		}
-	}
-
-	private void handleCreativeKeypress() {
-		this.level.update();
-	}
-	
-	private void handleScoreboardKeypress() {
-		// X pressed = quit
-		// M pressed = menu
-		if (this.keyH.xPressed == true) {
-			this.state = gameState.MENU;
-			// change this to exit ig
-		}
-		if (this.keyH.mPressed == true) {
-			this.state = gameState.MENU;
-		}
 	}
 	
 	private void handleWinKeypress() {
