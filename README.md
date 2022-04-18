@@ -70,19 +70,13 @@ And watch your configuration of a solar system come to life!
 
 ### Todo
 1. Draw planet and rocket trails **--> NOT WORKING, I GIVE UP!**
-2. Refactor code into proper classes
-3. ~Check for collisions~
-4. ~Check if goal reached~
-5. ~Figure out a system of points~
-6. ~Print text on screen~
-7. ~Scale up planet sizes with zoom~
-8. Implement scoreboard
-9. Implement menu screen
-10. Create new levels
-11. Update documentation to show all classes
-12. ~Prettify screens~
-13. Move background with pan/zoom if possible
-14. ~Set a timeout for loss~
+2. Refactor code into proper classes **--> Optional, as long as we can bluff well during presentation**
+3. Implement scoreboard
+4. Implement menu screen
+5. Create new levels **--> Mallika**
+6. Update documentation to show all classes **--> Everyone**
+7. Move background with pan/zoom if possible **--> Malllika**
+8. Store all images in a db
 
 ### Class Design
 #### Models

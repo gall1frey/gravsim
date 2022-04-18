@@ -19,5 +19,6 @@ public class CreativeUI {
 	
 	public void draw(Graphics2D g2, gameplayScreen screen, Level level) {
 		screen.renderEntities(level.getEntities(), level.isRocketMove(), g2, null);
+		screen.renderPlanetDetails(level.getEntities(), false, g2, null);
 	}
 }

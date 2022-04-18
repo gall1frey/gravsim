@@ -93,17 +93,28 @@ public class Level {
 			// update dist+travelled
 			this.updateDistTravelled(this.entities[i]);
 						
+			addTrail(this.entities[i]);
+			
 			// Use velocity to calculate updated position
 			this.entities[i].position[0] += physics.mToAu(physics.newPos(this.entities[i].velocity[0]));
 			this.entities[i].position[1] += physics.mToAu(physics.newPos(this.entities[i].velocity[1]));
 
-			addTrail(this.entities[i]);
 		}
 		return 0;
 	}
 	
 	public void addTrail(Entity e) {
 		//TODO: Fill this in
+		if (e.trail.pathTravelled.size() == 0) {
+			e.trail.addPathTravelled(e.position);
+		} else {
+			double[] pos1 = e.position;
+			double[] pos2 = e.trail.pathTravelled.peekLast();
+			System.out.println("Level [112]: "+physics.getDistance(physics.auToM(pos1), physics.auToM(pos2))+"\t"+(1/physics.getScale()));
+			if (physics.auToM(physics.getDistance(pos1, pos2)) >= (1/physics.getScale())) {
+				e.trail.addPathTravelled(pos1);
+			}
+		}
 	}
 	
 	public boolean Collision(double[] pos1, double[] pos2, double rad1, double rad2, double thresh) {

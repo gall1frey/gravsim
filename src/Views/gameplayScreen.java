@@ -93,7 +93,7 @@ public class gameplayScreen {
 
 	public void renderEntities(Entity[] entities_list, boolean rocket_exists, Graphics2D g, GamePanel observer) {
 		/*TODO: for each entity, find the pixel value; draw it*/
-		if (rocket_exists) {
+		/*if (rocket_exists) {
 			for (int i = 1; i < entities_list.length; i++) {
 				Planet p = (Planet) entities_list[i];
 				renderTrail(p.trail, g);
@@ -104,26 +104,36 @@ public class gameplayScreen {
 			}
 			Rocket r = (Rocket) entities_list[0];
 			renderTrail(r.trail, g);
-			Image rocket_img = rotate((BufferedImage) r.rocketSprite,physics.getAngle(r.getVel()[0], r.getVel()[1])+Math.PI/2);
+			Image rocket_img = rotate((BufferedImage) r.getSprite(1),physics.getAngle(r.getVel()[0], r.getVel()[1])+Math.PI/2);
 			int[] rocket_pos = st_instance.convertPosToPixel(r.getPos()[0], r.getPos()[1], r.radius, offsetX, offsetY);
 			//TODO: rocket acceleration animation 
 			g.drawImage(rocket_img, rocket_pos[0], rocket_pos[1], rocket_pos[2]*2, rocket_pos[2]*2, observer);	
 			//g.drawImage(rocket_img,rocket_pos[0],rocket_pos[1],null);
-		} else {
+		} else {*/
 			for (int i = 0; i < entities_list.length; i++) {
-				Planet p = (Planet) entities_list[i];
-				renderTrail(p.trail, g);
-				Image image_to_render = p.getPlanetSprite();
-				int[] position = st_instance.convertPosToPixel(p.getPos()[0], p.getPos()[1], p.radius, offsetX, offsetY);
-				g.drawImage(image_to_render, position[0], position[1], position[2]*2, position[2]*2, observer);
+				if (entities_list[i].getClass() == Planet.class) {
+					Planet p = (Planet) entities_list[i];
+					renderTrail(p.trail, g);
+					Image image_to_render = p.getPlanetSprite();
+					int[] position = st_instance.convertPosToPixel(p.getPos()[0], p.getPos()[1], p.radius, offsetX, offsetY);
+					g.drawImage(image_to_render, position[0], position[1], position[2]*2, position[2]*2, observer);
+
+				} else if (entities_list[i].getClass() == Rocket.class && rocket_exists){
+					Rocket r = (Rocket) entities_list[i];
+					renderTrail(r.trail,g);
+					Image rocket_img = rotate((BufferedImage) r.getSprite(1),physics.getAngle(r.getVel()[0], r.getVel()[1])+Math.PI/2);
+					int[] rocket_pos = st_instance.convertPosToPixel(r.getPos()[0], r.getPos()[1], r.radius, offsetX, offsetY);
+					g.drawImage(rocket_img, rocket_pos[0], rocket_pos[1], rocket_pos[2]*2, rocket_pos[2]*2, observer);
+				}
 			}
-		}
+		//}
 	}
 	
 	public void renderTrail(Trail t, Graphics2D g) {
 		// This function works. Setting the trail is the problem.
 		g.setColor(cyan);
 		if (t.pathTravelled.size() >= 2) {
+			System.out.println("gameplayScreen [127]: HERE!");
 			int[] x = new int[t.pathTravelled.size()];
 			int[] y = new int[t.pathTravelled.size()];
 			for (int i = 0; i < t.pathTravelled.size(); i++) {
@@ -193,6 +203,20 @@ public class gameplayScreen {
 		g.drawString(distUnits, 380, 80);
 		g.drawString(timeUnits, 613, 80);
 		g.drawString(distUnits, 1180, 80);
+	}
+
+	public void renderPlanetDetails(Entity[] entities_list, boolean rocket_exists, Graphics2D g, GamePanel observer) {
+		for (int i = 0; i < entities_list.length; i++) {
+			if (entities_list[i].getClass() == Planet.class) {
+				Planet p = (Planet) entities_list[i];
+				String name = p.name;
+				int[] pos = st_instance.convertPosToPixel(p.getPos()[0], p.getPos()[1], p.radius, offsetX, offsetY);
+				g.setColor(cyan);
+				g.setFont(new Font("Agency FB", Font.PLAIN, 15));
+				String toPrint = name + " [" + String.format("%4.2f", entities_list[i].getVel()[0]/1000) + "km/s, " + String.format("%4.2f", entities_list[i].getVel()[1]/1000) + "km/s]";
+				g.drawString(toPrint,pos[0],pos[1]);
+			}
+		}
 	}
 	
 	public BufferedImage rotate(BufferedImage image, double angle) {

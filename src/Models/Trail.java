@@ -15,15 +15,13 @@ public class Trail {
 		this.lenOfTrail = l;
 	}
 	
-	public void addPathTravelled(double[] point, int n) {
-		if ((count++)%n == 0) {
-			if( this.pathTravelled.size() >= this.lenOfTrail ) {
-				this.pathTravelled.poll();
-			}
-			double[] tmp_point = new double[2];
-			tmp_point[0] = point[0]; tmp_point[1] = point[1];
-			this.pathTravelled.offer(point);
+	public void addPathTravelled(double[] point) {
+		if( this.pathTravelled.size() >= this.lenOfTrail ) {
+			this.pathTravelled.poll();
 		}
+		double[] tmp_point = new double[2];
+		tmp_point[0] = point[0]; tmp_point[1] = point[1];
+		this.pathTravelled.offer(point);
 	}
 	
 	public LinkedList<double[]> getPathTravelled () {

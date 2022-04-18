@@ -225,9 +225,14 @@ public class GamePanel extends JPanel implements Runnable {
 
 		this.player = p;
 		this.level = l;
-		System.out.println("GamePanel[150]: "+level.getLevelName());
-		this.state = gameState.PLAY;
-		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
+		System.out.println("GamePanel[150]: "+level.getLevelName());				
+		this.state = gameState.CREATIVE;
+		
+		if (this.state == gameState.CREATIVE) {
+			l.setRocketMove(false);
+		}
+		
+		//this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
 		//TODO: Create a new playFrame for creative mode
 	}
 

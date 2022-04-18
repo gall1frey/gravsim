@@ -25,7 +25,7 @@ public class Rocket extends Entity {
 		this.fuelPercentage = fuel_percentage;
 		this.fuelBurnedPerTime = fuel_per_time;
 		this.forcePerFuelBurnt = force;
-		this.setRocketSprite(name,name,name);
+		this.setRocketSprite(name+".png",name+"a.png",name+"d.png");
 		this.trail = new Trail();
 		this.trail.setLenOfTrail(trail_length);
 		this.distTravelled = 0.0;
@@ -38,6 +38,7 @@ public class Rocket extends Entity {
 	public void setRocketSprite(String sprite, String accelerating_sprite, String decelerating_sprite) {
 		BufferedImage img0, img1, img2, img3, img4;
 		try {
+			System.out.println(accelerating_sprite);
 			img0 = ImageIO.read(new File(sprite));
 			img1 = ImageIO.read(new File(accelerating_sprite));
 			img2 = ImageIO.read(new File(decelerating_sprite));
@@ -50,7 +51,22 @@ public class Rocket extends Entity {
 			this.rocketSpriteDecelerating[1] = img4;
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.exit(0);
 		}
+	}
+	
+	public Image getSprite(int n)
+	{
+		if (n == 1) 
+			return this.rocketSpriteAccelerating[0];
+		if (n == 2) 
+			return this.rocketSpriteAccelerating[1];
+		if (n == 3) 
+			return this.rocketSpriteDecelerating[0];
+		if (n == 4) 
+			return this.rocketSpriteDecelerating[1];
+		else
+			return this.rocketSprite;
 	}
 	
 	public float getFuelPercentage() {
