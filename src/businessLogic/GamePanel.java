@@ -219,20 +219,27 @@ public class GamePanel extends JPanel implements Runnable {
 		// player name and level number should be returned by the method used.
 		
 		// then initialize player and level as follows
+		
+		// This func only for *VISUALIZATION*
+		// Use handleMenuKeypress to handle the logic of main menu
+		
+		// Ideally, handleUserMenuKeypress should set player, state and level details into this class' variables.
+		
 		Player p = new Player();
 		new LevelCatalogue();
 		Level l = LevelCatalogue.levels[0];
 
 		this.player = p;
-		this.level = l;
-		System.out.println("GamePanel[150]: "+level.getLevelName());				
+		this.level = l;	
 		this.state = gameState.CREATIVE;
 		
 		if (this.state == gameState.CREATIVE) {
 			l.setRocketMove(false);
 		}
 		
-		//this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
+		//TODO: put this next line in where you're setting player, state and level variables
+		// This is playframe for PLAY mode. CREATIVE mode playframe coming soon
+		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
 		//TODO: Create a new playFrame for creative mode
 	}
 
