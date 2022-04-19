@@ -12,6 +12,10 @@ public class Rocket extends Entity {
 	public Image rocketSprite;
 	public Image[] rocketSpriteAccelerating = new Image[2];
 	public Image[] rocketSpriteDecelerating = new Image[2];
+	public Image sprite;
+	public int spriteCounter;
+	public int spriteNum;
+	public Image curSprite;
 	float fuelBurnedPerTime;
 	float forcePerFuelBurnt;
 	double distTravelled;
@@ -22,6 +26,7 @@ public class Rocket extends Entity {
 		this.name = name;
 		this.position = new double[2];
 		this.velocity = new double[2];
+		this.spriteCounter = 0;
 		this.fuelPercentage = fuel_percentage;
 		this.fuelBurnedPerTime = fuel_per_time;
 		this.forcePerFuelBurnt = force;
@@ -54,21 +59,7 @@ public class Rocket extends Entity {
 			System.exit(0);
 		}
 	}
-	
-	public Image getSprite(int n)
-	{
-		if (n == 1) 
-			return this.rocketSpriteAccelerating[0];
-		if (n == 2) 
-			return this.rocketSpriteAccelerating[1];
-		if (n == 3) 
-			return this.rocketSpriteDecelerating[0];
-		if (n == 4) 
-			return this.rocketSpriteDecelerating[1];
-		else
-			return this.rocketSprite;
-	}
-	
+		
 	public float getFuelPercentage() {
 		return this.fuelPercentage;
 	}

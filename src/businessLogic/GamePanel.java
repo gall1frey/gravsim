@@ -125,16 +125,16 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	private void handleCommonPlayKeypress() {
 		//Panning
-		if (this.keyH.wPressed == true) {
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('W')] == true) {
 			this.screen.updateOffsetY(-10);
 		}
-		if (this.keyH.aPressed == true) {
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('A')]== true) {
 			this.screen.updateOffsetX(-10);
 		}
-		if (this.keyH.sPressed == true) {
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('S')] == true) {
 			this.screen.updateOffsetY(10);
 		}
-		if (this.keyH.dPressed == true) {
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('D')] == true) {
 			this.screen.updateOffsetX(10);
 		}
 
@@ -146,19 +146,27 @@ public class GamePanel extends JPanel implements Runnable {
 			this.screen.updateScale(-10);
 		}
 		
-		if (this.keyH.upPressed == true) {
-			this.level.handleAcceleration();
+		
+		// others
+		if (this.keyH.downPressed || this.keyH.upPressed) {
+			if (this.keyH.downPressed == true) {
+				if (this.level.handleDeceleration())
+					this.level.setRocketSprite(-1);
+			}
+			if (this.keyH.upPressed == true) {
+				if (this.level.handleAcceleration())
+					this.level.setRocketSprite(1);
+			}
+		} else {
+			this.level.setRocketSprite(0);
 		}
 		
-		if (this.keyH.downPressed == true) {
-			this.level.handleDeceleration();
-		}
 		
-		if (this.keyH.mPressed == true) {
+		if (this.keyH.escPressed == true) {
 			this.state = gameState.MENU;
 		}
 		
-		if (this.keyH.xPressed == true) {
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
 			this.state = gameState.EXIT;
 		}		
 	}
@@ -168,11 +176,11 @@ public class GamePanel extends JPanel implements Runnable {
 		// X pressed = quit
 		// M pressed = menu
 		this.player.setPlayerHighScore();
-		if (this.keyH.xPressed == true) {
+		if (this.keyH.escPressed == true) {
 			this.state = gameState.EXIT;
 			// change this to exit ig
 		}
-		if (this.keyH.mPressed == true) {
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
 			this.state = gameState.MENU;
 		}
 	}
@@ -185,17 +193,22 @@ public class GamePanel extends JPanel implements Runnable {
 		// TODO Auto-generated method stub
 		// X pressed = quit
 		// M pressed = menu
-		if (this.keyH.xPressed == true) {
+		if (this.keyH.escPressed == true) {
 			this.state = gameState.EXIT;
 			// change this to exit ig
 		}
-		if (this.keyH.mPressed == true) {
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
 			this.state = gameState.MENU;
 		}		
 	}
 
 	private void handleUserMenuKeypress() {
 		// TODO Auto-generated method stub
+		/*String username = "";
+		if (keyH.letterPressed[this.keyH.getLetterCode('A')]) {
+			username += "A";
+		}
+		*/
 	}
 
 	private void handleMenuKeypress() {
@@ -231,7 +244,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		this.player = p;
 		this.level = l;	
-		this.state = gameState.CREATIVE;
+		this.state = gameState.PLAY;
 		
 		if (this.state == gameState.CREATIVE) {
 			l.setRocketMove(false);

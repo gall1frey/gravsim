@@ -92,41 +92,22 @@ public class gameplayScreen {
 	}
 
 	public void renderEntities(Entity[] entities_list, boolean rocket_exists, Graphics2D g, GamePanel observer) {
-		/*TODO: for each entity, find the pixel value; draw it*/
-		/*if (rocket_exists) {
-			for (int i = 1; i < entities_list.length; i++) {
+		for (int i = 0; i < entities_list.length; i++) {
+			if (entities_list[i].getClass() == Planet.class) {
 				Planet p = (Planet) entities_list[i];
 				renderTrail(p.trail, g);
 				Image image_to_render = p.getPlanetSprite();
 				int[] position = st_instance.convertPosToPixel(p.getPos()[0], p.getPos()[1], p.radius, offsetX, offsetY);
-				//g.drawImage(image_to_render,position[0],position[1],null);
 				g.drawImage(image_to_render, position[0], position[1], position[2]*2, position[2]*2, observer);
-			}
-			Rocket r = (Rocket) entities_list[0];
-			renderTrail(r.trail, g);
-			Image rocket_img = rotate((BufferedImage) r.getSprite(1),physics.getAngle(r.getVel()[0], r.getVel()[1])+Math.PI/2);
-			int[] rocket_pos = st_instance.convertPosToPixel(r.getPos()[0], r.getPos()[1], r.radius, offsetX, offsetY);
-			//TODO: rocket acceleration animation 
-			g.drawImage(rocket_img, rocket_pos[0], rocket_pos[1], rocket_pos[2]*2, rocket_pos[2]*2, observer);	
-			//g.drawImage(rocket_img,rocket_pos[0],rocket_pos[1],null);
-		} else {*/
-			for (int i = 0; i < entities_list.length; i++) {
-				if (entities_list[i].getClass() == Planet.class) {
-					Planet p = (Planet) entities_list[i];
-					renderTrail(p.trail, g);
-					Image image_to_render = p.getPlanetSprite();
-					int[] position = st_instance.convertPosToPixel(p.getPos()[0], p.getPos()[1], p.radius, offsetX, offsetY);
-					g.drawImage(image_to_render, position[0], position[1], position[2]*2, position[2]*2, observer);
 
-				} else if (entities_list[i].getClass() == Rocket.class && rocket_exists){
-					Rocket r = (Rocket) entities_list[i];
-					renderTrail(r.trail,g);
-					Image rocket_img = rotate((BufferedImage) r.getSprite(1),physics.getAngle(r.getVel()[0], r.getVel()[1])+Math.PI/2);
-					int[] rocket_pos = st_instance.convertPosToPixel(r.getPos()[0], r.getPos()[1], r.radius, offsetX, offsetY);
-					g.drawImage(rocket_img, rocket_pos[0], rocket_pos[1], rocket_pos[2]*2, rocket_pos[2]*2, observer);
-				}
+			} else if (entities_list[i].getClass() == Rocket.class && rocket_exists){
+				Rocket r = (Rocket) entities_list[i];
+				renderTrail(r.trail,g);
+				Image rocket_img = rotate((BufferedImage) r.sprite,physics.getAngle(r.getVel()[0], r.getVel()[1])+Math.PI/2);
+				int[] rocket_pos = st_instance.convertPosToPixel(r.getPos()[0], r.getPos()[1], r.radius, offsetX, offsetY);
+				g.drawImage(rocket_img, rocket_pos[0], rocket_pos[1], rocket_pos[2]*2, rocket_pos[2]*2, observer);
 			}
-		//}
+		}
 	}
 	
 	public void renderTrail(Trail t, Graphics2D g) {

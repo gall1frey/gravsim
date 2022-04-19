@@ -13,7 +13,7 @@ public class MessageUI {
 	private static String victoryString = "GG, SIR!";
 	private static String lossString = "FA SCHIFO ESSERE TE";
 	private static String menuControl = "[M] Menu";
-	private static String exitControl = "[X] Exit";
+	private static String exitControl = "[ESC] Exit";
 	
 	private Color cyan = new Color(84,244,252);
 	private Color cyanTransparent = new Color(84,244,252,30);

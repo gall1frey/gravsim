@@ -5,8 +5,10 @@ import java.awt.event.KeyListener;
 
 public class keyHandler implements KeyListener {
 	
-	public boolean upPressed, downPressed, wPressed, aPressed, sPressed, dPressed, zInPressed, zOutPressed;
-	public boolean xPressed, mPressed;
+	public boolean upPressed, downPressed, zInPressed, zOutPressed;
+	//public enum letter {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
+	public boolean[] letterPressed = new boolean[26];
+	public boolean escPressed, enterPressed;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -23,23 +25,8 @@ public class keyHandler implements KeyListener {
 		if (code == KeyEvent.VK_DOWN) {
 			downPressed = true;
 		}
-		if (code == KeyEvent.VK_W ) {
-			wPressed = true;
-		}
-		if (code == KeyEvent.VK_A ) {
-			aPressed = true;
-		}
-		if (code == KeyEvent.VK_S ) {
-			sPressed = true;
-		}
-		if (code == KeyEvent.VK_D ) {
-			dPressed = true;
-		}
-		if (code == KeyEvent.VK_X) {
-			xPressed = true;
-		}
-		if (code == KeyEvent.VK_M) {
-			mPressed = true;
+		if (code >= 65 && code <= 65+26 ) {
+			letterPressed[code-65] = true;
 		}
 		if (code == KeyEvent.VK_NUMPAD8) {
 			zInPressed = true;
@@ -47,8 +34,15 @@ public class keyHandler implements KeyListener {
 		if (code == KeyEvent.VK_NUMPAD2) {
 			zOutPressed = true;
 		}
+		if (code == KeyEvent.VK_ESCAPE) {
+			escPressed = true;
+		}
 	}
 
+	public int getLetterCode(char x) {
+		return (int) x - (int) 'A';
+	}
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 
@@ -60,29 +54,17 @@ public class keyHandler implements KeyListener {
 		if (code == KeyEvent.VK_DOWN) {
 			downPressed = false;
 		}
-		if (code == KeyEvent.VK_W ) {
-			wPressed = false;
-		}
-		if (code == KeyEvent.VK_A ) {
-			aPressed = false;
-		}
-		if (code == KeyEvent.VK_S ) {
-			sPressed = false;
-		}
-		if (code == KeyEvent.VK_D ) {
-			dPressed = false;
-		}
-		if (code == KeyEvent.VK_X) {
-			xPressed = false;
-		}
-		if (code == KeyEvent.VK_M) {
-			mPressed = false;
+		if (code >= 65 && code <= 65+26 ) {
+			letterPressed[code-65] = false;
 		}
 		if (code == KeyEvent.VK_NUMPAD8) {
 			zInPressed = false;
 		}
 		if (code == KeyEvent.VK_NUMPAD2) {
 			zOutPressed = false;
+		}
+		if (code == KeyEvent.VK_ESCAPE) {
+			escPressed = false;
 		}
 	}
 	

@@ -11,11 +11,11 @@ public class ScoreboardHandler {
 	public gameState handleScoreboard(keyHandler keyH, gameState state) {
 		// X pressed = quit
 		// M pressed = menu
-		if (keyH.xPressed == true) {
+		if (keyH.escPressed == true) {
 			state = gameState.MENU;
 			// change this to exit ig
 		}
-		if (keyH.mPressed == true) {
+		if (keyH.letterPressed[keyH.getLetterCode('M')]== true) {
 			state = gameState.MENU;
 		}
 		return state;

@@ -23,7 +23,7 @@ public class Level {
 		}
 	}
 	
-	public void handleAcceleration() {
+	public boolean handleAcceleration() {
 		//if rocket exists
 		if (this.rocketMove) {
 			Rocket r = (Rocket) entities[0];
@@ -35,11 +35,14 @@ public class Level {
 				cur_vel[0] += components[0];
 				cur_vel[1] += components[1];
 				r.accelerateTo(cur_vel);
+				return true;
 			}
+			return false;
 		}
+		return false;
 	}
 	
-	public void handleDeceleration() {
+	public boolean handleDeceleration() {
 		//if rocket exists
 		if (this.rocketMove) {
 			Rocket r = (Rocket) entities[0];
@@ -51,10 +54,28 @@ public class Level {
 				cur_vel[0] -= components[0];
 				cur_vel[1] -= components[1];
 				r.accelerateTo(cur_vel);
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+
+	public void setRocketSprite(int n) {
+		if (this.entities[0].getClass() == Rocket.class) {
+			Rocket r = (Rocket) this.entities[0];
+			if (n == 1) {
+				// accelerating
+				r.sprite = r.rocketSpriteAccelerating[r.spriteNum];
+			} else if (n == -1) {
+				// accelerating
+				r.sprite = r.rocketSpriteDecelerating[r.spriteNum];
+			} else {
+				r.sprite = r.rocketSprite;
 			}
 		}
 	}
-
+	
 	public int update() {
 		// For every object in space, calculate force experienced by it due to every other object in space
 		// if rocket collides 		-> return -1
@@ -63,9 +84,19 @@ public class Level {
 		for (int i = 0; i < this.entities.length; i++) {
 			double total_fx = 0;
 			double total_fy = 0;
+			if (this.entities[i].getClass() == Rocket.class) {
+				Rocket r = (Rocket) this.entities[i];
+				r.spriteCounter++;
+				if (r.spriteCounter > 10) {
+					if(r.spriteNum == 0)
+						r.spriteNum = 1;
+					if (r.spriteNum == 1)
+						r.spriteNum = 0;
+				}
+			}
 			for (int j = 0; j < this.entities.length; j++) {
 				if (i != j) {
-					if (this.rocketMove && i == 0) {
+					if (this.rocketMove && this.entities[i].getClass() == Rocket.class) {
 						double thresh = 1e10;
 						int retval = -1;
 						if (this.entities[j].name == this.goalPlanet.name) {
