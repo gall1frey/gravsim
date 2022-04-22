@@ -4,10 +4,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import Models.Level;
-import Models.Player;
 import businessLogic.GamePanel;
-import businessLogic.LevelCatalogue;
 
 public class MainApp {
 

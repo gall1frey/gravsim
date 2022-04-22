@@ -92,7 +92,7 @@ public class gameplayScreen {
 	}
 
 	public void renderEntities(Entity[] entities_list, boolean rocket_exists, Graphics2D g, GamePanel observer) {
-		for (int i = 0; i < entities_list.length; i++) {
+		for (int i = entities_list.length-1; i >= 0; i--) {
 			if (entities_list[i].getClass() == Planet.class) {
 				Planet p = (Planet) entities_list[i];
 				renderTrail(p.trail, g);
@@ -154,12 +154,17 @@ public class gameplayScreen {
 		g.drawString(name_to_print, 1100, 700);
 	}
 
-	public void renderCreativeDetail(float time, Graphics2D g) {
+	public void renderCreativeDetail(int planetsInPlay, float time, Graphics2D g) {
 		time = physics.getRealWorldTime(time);
 		String timeString = String.format("%.2f", time);
+		String planetString = String.format("%03d", planetsInPlay);
 		g.setColor(cyan);
 		g.setFont(new Font("Agency FB", Font.PLAIN, 50));
 		g.drawString(timeString,533,80);
+		g.drawString(planetString,35,80);
+		String timeUnits = "yrs";
+		g.setFont(new Font("Agency FB", Font.PLAIN, 20));
+		g.drawString(timeUnits, 613, 80);
 	}
 	
 	public void renderPlayDetails(double vel, double dist_travelled, double dist_togo, float time, int points, Graphics2D g) {

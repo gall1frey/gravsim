@@ -17,8 +17,10 @@ public class CreativeUI {
 		return ui;
 	}
 	
-	public void draw(Graphics2D g2, gameplayScreen screen, Level level) {
+	public void draw(float time, Graphics2D g2, gameplayScreen screen, Level level) {
 		screen.renderEntities(level.getEntities(), level.isRocketMove(), g2, null);
 		screen.renderPlanetDetails(level.getEntities(), false, g2, null);
+		screen.renderPlayFrame(g2, null);
+		screen.renderCreativeDetail(level.getEntities().length, time, g2);
 	}
 }

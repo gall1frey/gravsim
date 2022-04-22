@@ -141,7 +141,7 @@ public class Level {
 		} else {
 			double[] pos1 = e.position;
 			double[] pos2 = e.trail.pathTravelled.peekLast();
-			System.out.println("Level [112]: "+physics.getDistance(physics.auToM(pos1), physics.auToM(pos2))+"\t"+(1/physics.getScale()));
+			//System.out.println("Level [146]: "+physics.getDistance(physics.auToM(pos1), physics.auToM(pos2))+"\t"+(1/physics.getScale()));
 			if (physics.auToM(physics.getDistance(pos1, pos2)) >= (1/physics.getScale())) {
 				e.trail.addPathTravelled(pos1);
 			}

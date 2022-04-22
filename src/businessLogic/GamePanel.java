@@ -118,7 +118,7 @@ public class GamePanel extends JPanel implements Runnable {
 		} else if (this.state == gameState.WIN) {
 			this.msgUI.draw(g2, screenHeight, screenWidth, true, this.player);
 		} else if (this.state == gameState.CREATIVE) {
-			this.creativeUI.draw(g2, screen, level);
+			this.creativeUI.draw(this.player.updateTimePlayed(), g2, screen, level);
 		}
 		g2.dispose();
 	}
@@ -152,10 +152,14 @@ public class GamePanel extends JPanel implements Runnable {
 			if (this.keyH.downPressed == true) {
 				if (this.level.handleDeceleration())
 					this.level.setRocketSprite(-1);
+				else
+					this.level.setRocketSprite(0);
 			}
 			if (this.keyH.upPressed == true) {
 				if (this.level.handleAcceleration())
 					this.level.setRocketSprite(1);
+				else
+					this.level.setRocketSprite(0);
 			}
 		} else {
 			this.level.setRocketSprite(0);
@@ -246,13 +250,15 @@ public class GamePanel extends JPanel implements Runnable {
 		this.level = l;	
 		this.state = gameState.PLAY;
 		
-		if (this.state == gameState.CREATIVE) {
-			l.setRocketMove(false);
-		}
-		
 		//TODO: put this next line in where you're setting player, state and level variables
 		// This is playframe for PLAY mode. CREATIVE mode playframe coming soon
-		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\play_frame.png");
+		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\play_frame.png");
+		
+		if (this.state == gameState.CREATIVE) {
+			l.setRocketMove(false);
+			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
+		}
+		
 		//TODO: Create a new playFrame for creative mode
 	}
 

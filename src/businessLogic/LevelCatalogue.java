@@ -18,7 +18,7 @@ public class LevelCatalogue {
 	}
 	
 	public LevelCatalogue() {
-		Rocket r = new Rocket((float) 0.5,20000,420000,109/2,100,"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\rockets\\rocket1",200);
+		Rocket r = new Rocket((float) 0.5,20000,420000,109/2,100,"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\rockets\\rocket4",200);
 		r.setPos(1, 2.80753e-6);
 		r.setVel(7777.7778, 0);
 		Planet p1 = new Planet("Sun", 1.9891e30, 696340000, "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet1.png", 200);

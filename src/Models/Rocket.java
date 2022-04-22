@@ -43,7 +43,6 @@ public class Rocket extends Entity {
 	public void setRocketSprite(String sprite, String accelerating_sprite, String decelerating_sprite) {
 		BufferedImage img0, img1, img2, img3, img4;
 		try {
-			System.out.println(accelerating_sprite);
 			img0 = ImageIO.read(new File(sprite));
 			img1 = ImageIO.read(new File(accelerating_sprite));
 			img2 = ImageIO.read(new File(decelerating_sprite));
@@ -69,7 +68,7 @@ public class Rocket extends Entity {
 	}
 	
 	public void accelerateTo(double[] new_vel) {
-		if (this.fuelPercentage > this.fuelBurnedPerTime) {
+		if (this.fuelPercentage > 0) {
 			this.setFuelPercentage(this.fuelPercentage - this.fuelBurnedPerTime);
 			this.velocity = new_vel;
 		}
