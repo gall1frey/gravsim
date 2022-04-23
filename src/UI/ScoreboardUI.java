@@ -41,16 +41,22 @@ public class ScoreboardUI{
 		g2.drawString(menu, 800, 690);
 		readyPen(g2,30,cyan); 
 		g2.drawString(exit, 1000, 690);
-		g2.drawString(player1, 530, 200);
-		g2.drawString(player2, 530, 270);
-		g2.drawString(player3, 530, 340);
-		g2.drawString(player4, 530, 410);
-		g2.drawString(player5, 530, 480);
+		g2.drawString(player1, 530, 220);
+		g2.drawString(player2, 530, 290);
+		g2.drawString(player3, 530, 360);
+		g2.drawString(player4, 530, 430);
+		g2.drawString(player5, 530, 500);
 		
 		g2.setStroke(new BasicStroke(5));
-		g2.drawRoundRect(765, 640, 170, 75, 35, 35);
-		g2.drawRoundRect(970, 640, 170, 75, 35, 35);
-//		g2.drawRoundRect(350, 450, 600, 75, 35, 35);
-//		g2.drawRoundRect(350, 550, 600, 75, 35, 35);
+		
+		g2.drawRoundRect(350, 185, 600, 50, 35, 35);
+		g2.drawRoundRect(350, 255, 600, 50, 35, 35);
+		g2.drawRoundRect(350, 325, 600, 50, 35, 35);
+		g2.drawRoundRect(350, 395, 600, 50, 35, 35);
+		g2.drawRoundRect(350, 465, 600, 50, 35, 35);
+		
+		g2.drawRoundRect(765, 647, 170, 60, 35, 35);
+		g2.drawRoundRect(970, 647, 170, 60, 35, 35);
+
 	}
 }
