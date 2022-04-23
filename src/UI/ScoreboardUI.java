@@ -6,15 +6,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import Models.Player;
+
 public class ScoreboardUI{
 	private static  ScoreboardUI ui = null;
 	
 	private static String title = "SCORE BOARD";
-	private static String player1 = "name and score goes here";
-	private static String player2 = "name and score goes here";
-	private static String player3 = "name and score goes here";
-	private static String player4 = "name and score goes here";
-	private static String player5 = "name and score goes here";
 	private static String menu = "[ M ]   MENU";
 	private static String exit = "[ ESC ]   EXIT";
 	
@@ -34,18 +31,59 @@ public class ScoreboardUI{
 		g2.setFont(new Font("Agency FB", Font.PLAIN, fontSize));
 	}
 	
-	public void draw(Graphics2D g2) {
+	private String[] getPlayerNames(Player[] p) {
+		String[] names = new String[p.length];
+		for (int i = 0; i < p.length; i++) {
+			if (p[i] != null)
+				names[i] = p[i].getPlayerName();
+			else
+				names[i] = "NONE";
+		}
+		return names;
+	}
+	
+	private String[] getLevelNames(Player[] p) {
+		String[] names = new String[p.length];
+		for (int i = 0; i < p.length; i++) {
+			if (p[i] != null)
+				names[i] = p[i].getLevelName();
+			else
+				names[i] = "NONE";
+		}
+		return names;
+	}
+	
+	private int[] getPlayerScores(Player[] p) {
+		int[] scores = new int[p.length];
+		for (int i = 0; i < p.length; i++) {
+			if (p[i] != null)
+				scores[i] = p[i].getPlayerHighScore();
+			else
+				scores[i] = 0;
+		}
+		return scores;
+	}
+	
+	public void draw(Graphics2D g2, Player[] players) {
+		
+		String[] names = getPlayerNames(players);
+		String[] levels = getLevelNames(players);
+		int[] scores = getPlayerScores(players);
+		
 		readyPen(g2,100,cyan);
 		g2.drawString(title, 425, 100);
 		readyPen(g2,30,cyan);
 		g2.drawString(menu, 800, 690);
 		readyPen(g2,30,cyan); 
 		g2.drawString(exit, 1000, 690);
-		g2.drawString(player1, 530, 220);
-		g2.drawString(player2, 530, 290);
-		g2.drawString(player3, 530, 360);
-		g2.drawString(player4, 530, 430);
-		g2.drawString(player5, 530, 500);
+		
+		for (int i = 0; i < 5; i++) {
+			g2.drawString(names[i], 420, 220+70*i);
+			g2.drawString(levels[i], 650, 220+70*i);
+			g2.drawString(String.format("%03d",scores[i]), 850, 220+70*i);
+		}
+		
+		//g2.drawString(player5, 530, 500);
 		
 		g2.setStroke(new BasicStroke(5));
 		
