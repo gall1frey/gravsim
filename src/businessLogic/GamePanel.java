@@ -39,10 +39,13 @@ public class GamePanel extends JPanel implements Runnable {
 	private MessageUI msgUI;
 	private CreativeUI creativeUI;
 	private MenuUI menuUI;
+	private UsermenuUI usermenuUI;
+	private ScoreboardUI scrbrdUI;
 
 	private PlayHandler playHandler;
 	private CreativeHandler creativeHandler;
 	private ScoreboardHandler scoreboardHandler;
+	private UsermenuHandler usermenuHandler;
 
 	int FPS = 60;
 
@@ -57,9 +60,12 @@ public class GamePanel extends JPanel implements Runnable {
 		this.msgUI = MessageUI.getInstance();
 		this.creativeUI = CreativeUI.getInstance();
 		this.menuUI = MenuUI.getInstance();
+		this.usermenuUI = UsermenuUI.getInstance();
+		this.scrbrdUI = ScoreboardUI.getInstance();
 		this.playHandler = PlayHandler.getInstance();
 		this.creativeHandler = CreativeHandler.getInstance();
 		this.scoreboardHandler = ScoreboardHandler.getInstance();
+		this.usermenuHandler = UsermenuHandler.getInstance();
 	}
 
 	public void startGameThread() {
@@ -122,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
 			this.menuUI.draw(g2);
 		} else if (this.state == gameState.USER_MENU) {
 			//TODO: refer line 92, do something like that
-			this.usermenuUI.draw(g2);
+			this.usermenuUI.draw(g2,this.player.getPlayerName());
 		} else if (this.state == gameState.SCOREBOARD) {
 			this.scrbrdUI.draw(g2);
 //			showScoreboard();
@@ -185,21 +191,21 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	private void handleUserMenuKeypress() {
-		// TODO Auto-generated method stub
-		/*String username = "";
-		if (keyH.letterPressed[this.keyH.getLetterCode('A')]) {
-			username += "A";
+		this.player = Player.getInstance();
+		this.level  = LevelCatalogue.getInstance(0);
+		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\play_frame.png");
+		String player_name = this.player.getPlayerName();
+		for (int i = 0; i < 26; i++) {
+			if (this.keyH.letterPressed[this.keyH.getLetterCode((char)(i+'A'))]) {
+				player_name += String.valueOf((char)(i+'A'));
+				this.keyH.letterPressed[this.keyH.getLetterCode((char)(i+'A'))] = false;
+			}
 		}
-		*/
-
-		if (this.keyH.letterPressed[this.keyH.getLetterCode('P')] == true) {
-			this.state = gameState.PLAY;
-
-		} else if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
-			this.state = gameState.MENU;
-
-		} else if (this.keyH.escPressed == true) {
-			this.state = gameState.EXIT;
+		this.player.setPlayerName(player_name);
+		this.state = usermenuHandler.handleUsermenu(keyH, state);
+		
+		if (this.state == gameState.CREATIVE) {
+			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
 		}
 
 	}
@@ -218,50 +224,5 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 
-	private void showScoreboard() {
-		//TODO: open scoreboard from here
-
-		if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
-			this.state = gameState.MENU;
-
-		} else if (this.keyH.escPressed == true) {
-			this.state = gameState.EXIT;
-		}
-
-	}
-
-	private void showUserMenu() {
-		//TODO: show user menu, get user name and level
-		//      from user
-
-		// Create a new class in models or business logic for this, and use it.
-		// That class can then call the inputView class from views for GUI
-		// player name and level number should be returned by the method used.
-
-		// then initialize player and level as follows
-
-		// This func only for *VISUALIZATION*
-		// Use handleMenuKeypress to handle the logic of main menu
-
-		// Ideally, handleUserMenuKeypress should set player, state and level details into this class' variables.
-		
-		Player p = Player.getNewInstance();
-		Level lev = LevelCatalogue.getInstance(0);
-		System.out.println("GamePanel [228]: "+lev.getEntities()[2].getPos()[0]+"\t"+lev.getEntities()[2].getPos()[1]);
-		this.player = p;
-		this.level = lev;
-		this.state = gameState.PLAY;
-
-		//TODO: put this next line in where you're setting player, state and level variables
-		// This is playframe for PLAY mode. CREATIVE mode playframe coming soon
-		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\play_frame.png");
-
-		if (this.state == gameState.CREATIVE) {
-			lev.setRocketMove(false);
-			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
-		}
-
-		//TODO: Create a new playFrame for creative mode
-	}
 
 }

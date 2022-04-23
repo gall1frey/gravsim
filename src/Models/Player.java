@@ -25,7 +25,7 @@ public class Player {
 	
 	private Player() {
 		System.out.println("Player [14]: New Player Created.");
-		this.playerName = "Player1";
+		this.playerName = "";
 		this.playerPoints = 0;
 		this.setPlayerHighScore();
 		this.setTimeStarted();

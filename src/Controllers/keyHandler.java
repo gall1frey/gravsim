@@ -37,6 +37,9 @@ public class keyHandler implements KeyListener {
 		if (code == KeyEvent.VK_ESCAPE) {
 			escPressed = true;
 		}
+		if (code == KeyEvent.VK_ENTER) {
+			enterPressed = true;
+		}
 	}
 
 	public int getLetterCode(char x) {
@@ -65,6 +68,9 @@ public class keyHandler implements KeyListener {
 		}
 		if (code == KeyEvent.VK_ESCAPE) {
 			escPressed = false;
+		}
+		if (code == KeyEvent.VK_ENTER) {
+			enterPressed = false;
 		}
 	}
 	

@@ -12,9 +12,9 @@ public class ScoreboardHandler {
 		// Esc pressed = quit
 		// M pressed = menu
 		if (keyH.escPressed == true) {
-			state = gameState.MENU;
+			state = gameState.EXIT;
 			keyH.escPressed = false;
-			// change this to exit ig ---- no!
+			// change this to exit ig ---- no! ----- yes! or you'd have two menu buttons
 		}
 		if (keyH.letterPressed[keyH.getLetterCode('M')]== true) {
 			state = gameState.MENU;

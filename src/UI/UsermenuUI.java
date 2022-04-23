@@ -15,8 +15,8 @@ public class UsermenuUI{
 	private static String rck1 = "ROCKET 1 image";
 	private static String rck2 = "ROCKET 2 image";
 
-	private static String menu = "[ M ]   MENU";
-	private static String start = "[ P ]   START";
+	private static String menu = "[ ESC ]   MENU";
+	private static String start = "[ ENTER ]   START";
 	
 	private Color cyan = new Color(84,244,252);
 	
@@ -35,24 +35,19 @@ public class UsermenuUI{
 		g2.setFont(new Font("Agency FB", Font.PLAIN, fontSize));
 	}
 	
-	public void draw(Graphics2D g2) {
+	public void draw(Graphics2D g2, String playerName) {
 		readyPen(g2,70,cyan);
 		g2.drawString(player, 225, 120);
-		
-		readyPen(g2,70,cyan);
 		g2.drawString(rocket, 225, 400);
+		
+		readyPen(g2,50,cyan);
+		g2.drawString(playerName, 370, 240);
 		
 		readyPen(g2,30,cyan);
 		g2.drawString(rck1, 418, 540);
-		
-		readyPen(g2,30,cyan);
 		g2.drawString(rck2, 756, 540);
-		
-		readyPen(g2,30,cyan);
-		g2.drawString(menu, 800, 690);
-		
-		readyPen(g2,30,cyan); 
-		g2.drawString(start, 1000, 690);
+		g2.drawString(menu, 780, 690);
+		g2.drawString(start, 990, 690);
 		
 		
 		g2.setStroke(new BasicStroke(5));
@@ -65,7 +60,7 @@ public class UsermenuUI{
 //		g2.drawRoundRect(350, 465, 600, 50, 35, 35);
 //		
 		g2.drawRoundRect(765, 647, 170, 60, 35, 35);
-		g2.drawRoundRect(970, 647, 170, 60, 35, 35);
+		g2.drawRoundRect(970, 647, 200, 60, 35, 35);
 
 	}
 }

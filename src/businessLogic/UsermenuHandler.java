@@ -12,15 +12,12 @@ public class UsermenuHandler {
 	public gameState handleUsermenu(keyHandler keyH, gameState state) {
 		// P pressed = start game
 		// M pressed = menu
-		if (keyH.escPressed == true) {
-			state = gameState.MENU;
-			// change this to exit ig ---- no!
-		}
-		if (keyH.letterPressed[keyH.getLetterCode('M')]== true) {
-			state = gameState.MENU;
-		}
-		if (keyH.letterPressed[keyH.getLetterCode('P')]== true) {
+		if (keyH.enterPressed == true) {
 			state = gameState.PLAY;
+			state = gameState.PLAY;
+		} else if (keyH.escPressed == true) {
+			state = gameState.MENU;
+			keyH.escPressed = false;
 		}
 		return state;
 	}

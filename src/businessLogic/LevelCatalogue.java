@@ -27,10 +27,10 @@ public class LevelCatalogue {
 		Rocket r = new Rocket((float) 0.5,20000,420000,109/2,100,"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\rockets\\rocket1",200);
 		r.setPos(1, 2.80753e-6);
 		r.setVel(7777.7778, 0);
-		Planet p1 = new Planet("Sun", 1.9891e30, 696340000, "C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\Main Project Folder\\gravsim\\assets\\images\\planets\\planet1.png", 200);
+		Planet p1 = new Planet("Sun", 1.9891e30, 696340000, "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet1.png", 200);
 		p1.setPos(2, 2);
 		p1.setVel(0, 0);
-		Planet p2 = new Planet("Earth", 5.974e24, 6371000, "C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\Main Project Folder\\gravsim\\assets\\images\\planets\\planet2.png", 200);
+		Planet p2 = new Planet("Earth", 5.974e24, 6371000, "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet2.png", 200);
 		p2.setPos(1, 2);
 		p2.setVel(0, -30000);
 		Entity[] eList = new Entity[3];
