@@ -29,18 +29,18 @@ public class GamePanel extends JPanel implements Runnable {
 	private Player player;
 	private Level level;
 	private gameplayScreen screen = new gameplayScreen("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\background.png");
-	public enum gameState { PLAY, WIN, CRASH, SCOREBOARD, MENU, USER_MENU, CREATIVE, EXIT };
+	public enum gameState { PLAY, WIN, CRASH, SCOREBOARD, MENU, USER_MENU, CREATIVE, EXIT, CREATIVE_MENU };
 //	private gameState state = gameState.USER_MENU;
 	private gameState state = gameState.MENU;
-	
-	private PlayGameUI playUI = PlayGameUI.getInstance();
-	private MessageUI msgUI = MessageUI.getInstance();
-	private CreativeUI creativeUI = CreativeUI.getInstance();
-	private MenuUI menuUI = MenuUI.getInstance();
-	
-	private PlayHandler playHandler = PlayHandler.getInstance();
-	private CreativeHandler creativeHandler = CreativeHandler.getInstance();
-	private ScoreboardHandler scoreboardHandler = ScoreboardHandler.getInstance();
+
+	private PlayGameUI playUI;
+	private MessageUI msgUI;
+	private CreativeUI creativeUI;
+	private MenuUI menuUI;
+
+	private PlayHandler playHandler;
+	private CreativeHandler creativeHandler;
+	private ScoreboardHandler scoreboardHandler;
 
 	int FPS = 60;
 
@@ -51,6 +51,13 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
+		this.playUI = PlayGameUI.getInstance();
+		this.msgUI = MessageUI.getInstance();
+		this.creativeUI = CreativeUI.getInstance();
+		this.menuUI = MenuUI.getInstance();
+		this.playHandler = PlayHandler.getInstance();
+		this.creativeHandler = CreativeHandler.getInstance();
+		this.scoreboardHandler = ScoreboardHandler.getInstance();
 	}
 
 	public void startGameThread() {
@@ -82,22 +89,22 @@ public class GamePanel extends JPanel implements Runnable {
 	public void update() {
 		if (this.state == gameState.PLAY) {
 			handleCommonPlayKeypress();
-			this.state = playHandler.handlePlay(level, player, state);
+			if (this.player != null && this.level != null)
+				this.state = playHandler.handlePlay(this.keyH, level, player, state);
 		} else if (this.state == gameState.SCOREBOARD) {
 			this.state = scoreboardHandler.handleScoreboard(keyH, state);
 		} else if (this.state == gameState.MENU) {
 			handleMenuKeypress();
 		} else if (this.state == gameState.USER_MENU) {
 			handleUserMenuKeypress();
-		} else if (this.state == gameState.CRASH) {
-			handleCrashKeypress();
-		} else if (this.state == gameState.WIN) {
-			handleWinKeypress();
+		} else if (this.state == gameState.WIN || this.state == gameState.CRASH) {
+			handleEndGameKeypress();
 		} else if (this.state == gameState.EXIT) {
 			handleExit();
 		} else if (this.state == gameState.CREATIVE) {
 			handleCommonPlayKeypress();
-			creativeHandler.handleCreative(level);
+			if (this.player != null && this.level != null)
+				creativeHandler.handleCreative(level);
 		}
 	}
 
@@ -123,7 +130,7 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		g2.dispose();
 	}
-	
+
 	private void handleCommonPlayKeypress() {
 		//Panning
 		if (this.keyH.letterPressed[this.keyH.getLetterCode('W')] == true) {
@@ -146,64 +153,32 @@ public class GamePanel extends JPanel implements Runnable {
 		if (this.keyH.zOutPressed == true) {
 			this.screen.updateScale(-10);
 		}
-		
+
 		// others
-		if (this.keyH.downPressed || this.keyH.upPressed) {
-			if (this.keyH.downPressed == true) {
-				if (this.level.handleDeceleration())
-					this.level.setRocketSprite(-1);
-				else
-					this.level.setRocketSprite(0);
-			}
-			if (this.keyH.upPressed == true) {
-				if (this.level.handleAcceleration())
-					this.level.setRocketSprite(1);
-				else
-					this.level.setRocketSprite(0);
-			}
-		} else {
-			this.level.setRocketSprite(0);
-		}
-		
-		
 		if (this.keyH.escPressed == true) {
 			this.state = gameState.MENU;
-		}
-		
-		if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
-			this.state = gameState.EXIT;
-		}		
-	}
-	
-	private void handleWinKeypress() {
-		// TODO Auto-generated method stub
-		// X pressed = quit
-		// M pressed = menu
-		this.player.setPlayerHighScore();
-		if (this.keyH.escPressed == true) {
-			this.state = gameState.EXIT;
-			// change this to exit ig
-		}
-		if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
-			this.state = gameState.MENU;
+			this.player = null;
+			this.level = null;
+			this.keyH.escPressed = false;
 		}
 	}
 
-	public void handleExit() {
-		System.exit(0);
-	}
-	
-	private void handleCrashKeypress() {
+	private void handleEndGameKeypress() {
 		// TODO Auto-generated method stub
 		// X pressed = quit
 		// M pressed = menu
 		if (this.keyH.escPressed == true) {
 			this.state = gameState.EXIT;
-			// change this to exit ig
 		}
 		if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
 			this.state = gameState.MENU;
-		}		
+		}
+		this.player.setPlayerHighScore();
+		this.level = null;
+	}
+
+	private void handleExit() {
+		System.exit(0);
 	}
 
 	private void handleUserMenuKeypress() {
@@ -217,54 +192,53 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private void handleMenuKeypress() {
 		// TODO Auto-generated method stub
-		if (this.keyH.letterPressed[this.keyH.getLetterCode('P')] == true) {
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('P')]) {
 			this.state = gameState.USER_MENU;
+			LevelCatalogue.resetInstance();
 		} else if (this.keyH.letterPressed[this.keyH.getLetterCode('S')] == true) {
 			this.state = gameState.SCOREBOARD;
 		} else if (this.keyH.letterPressed[this.keyH.getLetterCode('C')] == true) {
-			this.state = gameState.CREATIVE;
+			this.state = gameState.CREATIVE_MENU;
 		} else if (this.keyH.escPressed == true) {
 			this.state = gameState.EXIT;
 		}
-		
 	}
 
 	private void showScoreboard() {
 		//TODO: open scoreboard from here
 	}
-	
+
 	private void showUserMenu() {
 		//TODO: show user menu, get user name and level
 		//      from user
-		
+
 		// Create a new class in models or business logic for this, and use it.
 		// That class can then call the inputView class from views for GUI
 		// player name and level number should be returned by the method used.
-		
+
 		// then initialize player and level as follows
-		
+
 		// This func only for *VISUALIZATION*
 		// Use handleMenuKeypress to handle the logic of main menu
-		
+
 		// Ideally, handleUserMenuKeypress should set player, state and level details into this class' variables.
 		
-		Player p = new Player();
-		new LevelCatalogue();
-		Level l = LevelCatalogue.levels[0];
-
+		Player p = Player.getNewInstance();
+		Level lev = LevelCatalogue.getInstance(0);
+		System.out.println("GamePanel [228]: "+lev.getEntities()[2].getPos()[0]+"\t"+lev.getEntities()[2].getPos()[1]);
 		this.player = p;
-		this.level = l;	
+		this.level = lev;
 		this.state = gameState.PLAY;
-		
+
 		//TODO: put this next line in where you're setting player, state and level variables
 		// This is playframe for PLAY mode. CREATIVE mode playframe coming soon
 		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\play_frame.png");
-		
+
 		if (this.state == gameState.CREATIVE) {
-			l.setRocketMove(false);
+			lev.setRocketMove(false);
 			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
 		}
-		
+
 		//TODO: Create a new playFrame for creative mode
 	}
 

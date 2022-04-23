@@ -3,6 +3,7 @@ package Models;
 import java.util.Date;
 
 public class Player {
+	public static Player instance = null;
 	private String playerName;
 	private int playerPoints;
 	private int playerHighScore = 0;
@@ -10,12 +11,24 @@ public class Player {
 	private long timePlayed;
 	private long timeStarted;
 	
-	public Player() {
+	public static Player getInstance() {
+		if (instance == null) {
+			instance = new Player();
+		}
+		return instance;
+	}
+	
+	public static Player getNewInstance() {
+		instance = new Player();
+		return instance;
+	}
+	
+	private Player() {
+		System.out.println("Player [14]: New Player Created.");
 		this.playerName = "Player1";
 		this.playerPoints = 0;
 		this.setPlayerHighScore();
-		Date date = new Date();
-		this.setTimeStarted(date.getTime());
+		this.setTimeStarted();
 	}
 	
 	public String getPlayerName() {
@@ -56,8 +69,9 @@ public class Player {
 		return timeStarted;
 	}
 
-	public void setTimeStarted(long timeStarted) {
-		this.timeStarted = timeStarted;
+	public void setTimeStarted() {
+		Date date = new Date();
+		this.timeStarted = date.getTime();
 	}
 
 	public long updateTimePlayed() {

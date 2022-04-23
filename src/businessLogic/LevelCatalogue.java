@@ -6,10 +6,14 @@ import Models.Planet;
 import Models.Rocket;
 
 public class LevelCatalogue {
+	
+	private static Level curLevel = null;
+	//private static Level curLevelBkp = null;
+	
 	public static Level[] levels = new Level[10];
 	public static int levCount = 0;
 	
-	private void addLevel(String name, Entity[] objects, boolean rocket_move, boolean planets_move) {
+	private static void addLevel(String name, Entity[] objects, boolean rocket_move, boolean planets_move) {
 		if (levCount < 10) {
 			Level l = new Level(name, objects, rocket_move, planets_move,50000);
 			levels[levCount] = l;
@@ -17,7 +21,9 @@ public class LevelCatalogue {
 		}
 	}
 	
-	public LevelCatalogue() {
+	public LevelCatalogue() {}
+	
+	private static void start() {
 		Rocket r = new Rocket((float) 0.5,20000,420000,109/2,100,"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\rockets\\rocket1",200);
 		r.setPos(1, 2.80753e-6);
 		r.setVel(7777.7778, 0);
@@ -34,4 +40,20 @@ public class LevelCatalogue {
 		addLevel("Basic", eList, true, false);
 	}
 	
+	public static Level getInstance(int n) {
+		if (curLevel == null) {
+			start();
+			curLevel = levels[n];
+		} else if (!curLevel.equals(levels[n])) {
+			curLevel = levels[n];
+		}
+		System.out.println("LevelCatalogue [33]: "+curLevel.getEntities()[2].getPos()[0]+"\t"+curLevel.getEntities()[2].getPos()[1]);
+		return curLevel;
+	}
+	
+	public static void resetInstance() {
+		curLevel = null;
+		start();
+	}
+
 }

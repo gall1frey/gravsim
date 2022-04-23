@@ -1,6 +1,6 @@
 package Models;
 
-public class Level {
+public class Level implements Cloneable{
 	protected String levelName;
 	private Entity[] entities;
 	protected boolean rocketMove;
@@ -11,6 +11,7 @@ public class Level {
 	private long timeAllowed; // in milliseconds
 
 	public Level(String name, Entity[] objects, boolean rocket_move, boolean planets_move, long timeAllowed) {
+		System.out.println("Level [14]: New Level Created.");
 		this.levelName = name;
 		// First entity is rocket. Rest are planets.
 		this.setEntities(objects);
@@ -170,7 +171,11 @@ public class Level {
 	}
 
 	public Entity[] getEntities() {
-		return entities;
+		try {			
+			return entities;
+		} finally {
+			
+		}
 	}
 
 	public void setEntities(Entity[] entities) {
@@ -240,5 +245,13 @@ public class Level {
 
 	public void setTimeAllowed(long timeAllowed) {
 		this.timeAllowed = timeAllowed;
+	}
+	
+	public Object clone(){  
+	    try{  
+	        return super.clone();  
+	    }catch(Exception e){ 
+	        return null; 
+	    }
 	}
 }

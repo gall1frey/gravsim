@@ -12,11 +12,12 @@ public class ScoreboardHandler {
 		// Esc pressed = quit
 		// M pressed = menu
 		if (keyH.escPressed == true) {
-			state = gameState.MENU;
-			// change this to exit ig
+			state = gameState.EXIT;
+			keyH.escPressed = false;
 		}
 		if (keyH.letterPressed[keyH.getLetterCode('M')]== true) {
 			state = gameState.MENU;
+			
 		}
 		return state;
 	}

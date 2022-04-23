@@ -75,7 +75,7 @@ And watch your configuration of a solar system come to life!
 4. Implement menu screen
 5. Create new levels **--> Mallika**
 6. Update documentation to show all classes **--> Everyone**
-7. Move background with pan/zoom if possible **--> Malllika**
+7. Move background with pan/zoom if possible **--> Mallika**
 8. Store all images in a db
 
 ### Class Design
