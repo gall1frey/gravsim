@@ -33,7 +33,7 @@ public class MenuUI{
 	
 	public void draw(Graphics2D g2) {
 		readyPen(g2,100,cyan);
-		g2.drawString(title, 500, 100);
+		g2.drawString(title, 480, 100);
 		readyPen(g2,40,cyan);
 		g2.drawString(menu, 600, 180);
 		readyPen(g2,30,cyan); 
@@ -47,6 +47,7 @@ public class MenuUI{
 		g2.drawRoundRect(350, 450, 600, 75, 35, 35);
 		g2.drawRoundRect(350, 550, 600, 75, 35, 35);
 	}
+}
 	
 	/*public Rectangle playButton = new Rectangle(GamePanel.WIDTH/2 + 120, 150, 100, 50);
 	public Rectangle scoreButton = new Rectangle(GamePanel.WIDTH/2 + 120, 250, 100, 50);
@@ -85,4 +86,3 @@ public class MenuUI{
 		
 		
 	}*/
-}
