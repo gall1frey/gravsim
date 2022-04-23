@@ -15,6 +15,7 @@ public class MessageUI {
 	private static String menuControl = "[M] Menu";
 	private static String exitControl = "[ESC] Exit";
 	
+	
 	private Color cyan = new Color(84,244,252);
 	private Color cyanTransparent = new Color(84,244,252,30);
 	private Color red = new Color(224, 0, 37);

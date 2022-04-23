@@ -11,9 +11,9 @@ import Models.Planet;
 public class CreativeHandler {
 	private static CreativeHandler handler = null;
 	String[] SpritePaths = {
-		"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet1.png",
-		"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet2.png",
-		"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet3.png"
+		"C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\Main Project Folder\\gravsim\\assets\\images\\planets\\planet1.png",
+		"C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\Main Project Folder\\gravsim\\assets\\images\\planets\\planet2.png",
+		"C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\Main Project Folder\\gravsim\\assets\\images\\planets\\planet3.png"
 	};
 	int randomIndex = (int) ((Math.random() * (2 - 0)) + 0);
 	

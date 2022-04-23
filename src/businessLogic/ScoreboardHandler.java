@@ -9,7 +9,7 @@ public class ScoreboardHandler {
 	private ScoreboardHandler() {}
 	
 	public gameState handleScoreboard(keyHandler keyH, gameState state) {
-		// X pressed = quit
+		// Esc pressed = quit
 		// M pressed = menu
 		if (keyH.escPressed == true) {
 			state = gameState.MENU;

@@ -1,5 +1,7 @@
 package businessLogic;
 
+import Views.menuView;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,9 +29,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private Player player;
 	private Level level;
-	private gameplayScreen screen = new gameplayScreen("C:\\Users\\sirdm\\Documents\\projects\\gravsim2\\assets\\images\\misc\\background.png");
+	private gameplayScreen screen = new gameplayScreen("C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\Main Project Folder\\gravsim\\assets\\images\\misc\\background.png");
 	public enum gameState { PLAY, WIN, CRASH, SCOREBOARD, MENU, USER_MENU, CREATIVE, EXIT };
-	private gameState state = gameState.USER_MENU;
+//	private gameState state = gameState.USER_MENU;
+	private gameState state = gameState.MENU;
 	
 	private PlayGameUI playUI = PlayGameUI.getInstance();
 	private MessageUI msgUI   = MessageUI.getInstance();
@@ -108,12 +111,16 @@ public class GamePanel extends JPanel implements Runnable {
 			this.msgUI.draw(g2, screenHeight, screenWidth, false, this.player);
 		} else if (this.state == gameState.MENU) {
 			//TODO: refer line 92, do something like that
+//			handleMenuKeypress();
+			
 			showMenu();
 		} else if (this.state == gameState.USER_MENU) {
 			//TODO: refer line 92, do something like that
+
 			showUserMenu();
 		} else if (this.state == gameState.SCOREBOARD) {
 			//TODO: refer line 92, do something like that
+
 			showScoreboard();
 		} else if (this.state == gameState.WIN) {
 			this.msgUI.draw(g2, screenHeight, screenWidth, true, this.player);
@@ -217,6 +224,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private void handleMenuKeypress() {
 		// TODO Auto-generated method stub
+		
 	}
 
 	private void showScoreboard() {
@@ -225,6 +233,9 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	private void showMenu() {
 		//TODO: main menu stuff goes here
+		
+		
+		
 	}
 	
 	private void showUserMenu() {
@@ -252,11 +263,11 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		//TODO: put this next line in where you're setting player, state and level variables
 		// This is playframe for PLAY mode. CREATIVE mode playframe coming soon
-		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\play_frame.png");
+		this.screen.setPlayFrame("C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\gravsim\\assets\\images\\misc\\play_frame.png");
 		
 		if (this.state == gameState.CREATIVE) {
 			l.setRocketMove(false);
-			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
+			this.screen.setPlayFrame("C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
 		}
 		
 		//TODO: Create a new playFrame for creative mode

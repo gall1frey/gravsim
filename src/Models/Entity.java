@@ -4,7 +4,7 @@ public abstract class Entity {
 	/*
 	 Class Entity: defines objects in space that have mass and velocity 
 	*/	
-	public double mass; // Mass in kg
+	public double mass; // Mass in KG
 	protected double[] velocity; // Velocity in m/s
 	protected double[] position; // Position in AU
 	public double radius; // Size of object (consider radius) in m
