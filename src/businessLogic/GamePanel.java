@@ -11,6 +11,8 @@ import Models.Player;
 import UI.CreativeUI;
 import UI.MessageUI;
 import UI.PlayGameUI;
+import UI.ScoreboardUI;
+import UI.UsermenuUI;
 import UI.MenuUI;
 import Views.gameplayScreen;
 
@@ -120,9 +122,10 @@ public class GamePanel extends JPanel implements Runnable {
 			this.menuUI.draw(g2);
 		} else if (this.state == gameState.USER_MENU) {
 			//TODO: refer line 92, do something like that
-			showUserMenu();
+			this.usermenuUI.draw(g2);
 		} else if (this.state == gameState.SCOREBOARD) {
-			showScoreboard();
+			this.scrbrdUI.draw(g2);
+//			showScoreboard();
 		} else if (this.state == gameState.WIN) {
 			this.msgUI.draw(g2, screenHeight, screenWidth, true, this.player);
 		} else if (this.state == gameState.CREATIVE) {
@@ -188,6 +191,17 @@ public class GamePanel extends JPanel implements Runnable {
 			username += "A";
 		}
 		*/
+
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('P')] == true) {
+			this.state = gameState.PLAY;
+
+		} else if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
+			this.state = gameState.MENU;
+
+		} else if (this.keyH.escPressed == true) {
+			this.state = gameState.EXIT;
+		}
+
 	}
 
 	private void handleMenuKeypress() {
@@ -206,6 +220,14 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private void showScoreboard() {
 		//TODO: open scoreboard from here
+
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
+			this.state = gameState.MENU;
+
+		} else if (this.keyH.escPressed == true) {
+			this.state = gameState.EXIT;
+		}
+
 	}
 
 	private void showUserMenu() {
