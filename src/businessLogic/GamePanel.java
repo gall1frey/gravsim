@@ -12,6 +12,7 @@ import UI.CreativeUI;
 import UI.MessageUI;
 import UI.PlayGameUI;
 import UI.ScoreboardUI;
+import UI.UsermenuUI;
 import UI.MenuUI;
 import Views.gameplayScreen;
 
@@ -39,10 +40,12 @@ public class GamePanel extends JPanel implements Runnable {
 	private CreativeUI creativeUI = CreativeUI.getInstance();
 	private MenuUI menuUI = MenuUI.getInstance();
 	private ScoreboardUI scrbrdUI = ScoreboardUI.getInstance();
+	private UsermenuUI usermenuUI = UsermenuUI.getInstance();
 	
 	private PlayHandler playHandler = PlayHandler.getInstance();
 	private CreativeHandler creativeHandler = CreativeHandler.getInstance();
 	private ScoreboardHandler scoreboardHandler = ScoreboardHandler.getInstance();
+	private UsermenuHandler usermenuHandler = UsermenuHandler.getInstance();
 
 	int FPS = 60;
 
@@ -115,7 +118,7 @@ public class GamePanel extends JPanel implements Runnable {
 			this.menuUI.draw(g2);
 		} else if (this.state == gameState.USER_MENU) {
 			//TODO: refer line 92, do something like that
-			showUserMenu();
+			this.usermenuUI.draw(g2);
 		} else if (this.state == gameState.SCOREBOARD) {
 			this.scrbrdUI.draw(g2);
 //			showScoreboard();
@@ -216,6 +219,17 @@ public class GamePanel extends JPanel implements Runnable {
 			username += "A";
 		}
 		*/
+		
+		if (this.keyH.letterPressed[this.keyH.getLetterCode('P')] == true) {
+			this.state = gameState.PLAY;
+			
+		} else if (this.keyH.letterPressed[this.keyH.getLetterCode('M')] == true) {
+			this.state = gameState.MENU;
+		
+		} else if (this.keyH.escPressed == true) {
+			this.state = gameState.EXIT;
+		}
+		
 	}
 
 	private void handleMenuKeypress() {
