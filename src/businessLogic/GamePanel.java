@@ -127,8 +127,9 @@ public class GamePanel extends JPanel implements Runnable {
 		} else if (this.state == gameState.MENU) {
 			this.menuUI.draw(g2);
 		} else if (this.state == gameState.USER_MENU) {
-			//TODO: refer line 92, do something like that
-			this.usermenuUI.draw(g2,this.player.getPlayerName());
+			if(this.player != null && this.level != null) {				
+				this.usermenuUI.draw(g2,this.player.getPlayerName());
+			}
 		} else if (this.state == gameState.SCOREBOARD) {
 			this.scrbrdUI.draw(g2);
 //			showScoreboard();
@@ -201,8 +202,12 @@ public class GamePanel extends JPanel implements Runnable {
 				this.keyH.letterPressed[this.keyH.getLetterCode((char)(i+'A'))] = false;
 			}
 		}
+		if (this.keyH.bkspPressed) {
+			player_name = player_name.substring(0, player_name.length() - 1);
+			this.keyH.bkspPressed = false;
+		}
 		this.player.setPlayerName(player_name);
-		this.state = usermenuHandler.handleUsermenu(keyH, state);
+		this.state = usermenuHandler.handleUsermenu(keyH, state, this.player.getPlayerName());
 		
 		if (this.state == gameState.CREATIVE) {
 			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");

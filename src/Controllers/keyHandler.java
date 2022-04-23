@@ -9,6 +9,7 @@ public class keyHandler implements KeyListener {
 	//public enum letter {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
 	public boolean[] letterPressed = new boolean[26];
 	public boolean escPressed, enterPressed;
+	public boolean bkspPressed;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -39,6 +40,9 @@ public class keyHandler implements KeyListener {
 		}
 		if (code == KeyEvent.VK_ENTER) {
 			enterPressed = true;
+		}
+		if (code == KeyEvent.VK_BACK_SPACE) {
+			bkspPressed = true;
 		}
 	}
 
@@ -71,6 +75,9 @@ public class keyHandler implements KeyListener {
 		}
 		if (code == KeyEvent.VK_ENTER) {
 			enterPressed = false;
+		}
+		if (code == KeyEvent.VK_BACK_SPACE) {
+			bkspPressed = false;
 		}
 	}
 	

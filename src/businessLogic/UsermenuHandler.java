@@ -9,12 +9,11 @@ public class UsermenuHandler {
 	/* Use this class to make db calls and stuff for rockets */
 	private UsermenuHandler() {}
 	
-	public gameState handleUsermenu(keyHandler keyH, gameState state) {
+	public gameState handleUsermenu(keyHandler keyH, gameState state, String playerName) {
 		// P pressed = start game
 		// M pressed = menu
-		if (keyH.enterPressed == true) {
-			state = gameState.PLAY;
-			state = gameState.PLAY;
+		if (keyH.enterPressed == true && playerName.length() > 0) {
+			state = gameState.PLAY;;
 		} else if (keyH.escPressed == true) {
 			state = gameState.MENU;
 			keyH.escPressed = false;

@@ -47,7 +47,7 @@ public class LevelCatalogue {
 		} else if (!curLevel.equals(levels[n])) {
 			curLevel = levels[n];
 		}
-		System.out.println("LevelCatalogue [33]: "+curLevel.getEntities()[2].getPos()[0]+"\t"+curLevel.getEntities()[2].getPos()[1]);
+		//System.out.println("LevelCatalogue [33]: "+curLevel.getEntities()[2].getPos()[0]+"\t"+curLevel.getEntities()[2].getPos()[1]);
 		return curLevel;
 	}
 

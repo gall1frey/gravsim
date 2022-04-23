@@ -1,12 +1,16 @@
 package businessLogic;
 
+import com.mongodb.MongoClient;
+
 import Controllers.keyHandler;
 import businessLogic.GamePanel.gameState;
 
 public class ScoreboardHandler {
 	private static ScoreboardHandler handler = null;
 	/* Use this class to make db calls and stuff for players and scores */
-	private ScoreboardHandler() {}
+	private ScoreboardHandler() {
+		//MongoClient mongoClient = 
+	}
 
 	public gameState handleScoreboard(keyHandler keyH, gameState state) {
 		// Esc pressed = quit
