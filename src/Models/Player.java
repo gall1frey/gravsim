@@ -25,7 +25,7 @@ public class Player {
 	
 	public Player() {
 		this.playerName = "";
-		this.levelName = "C:\\Users\\sirdm\\Desktop\\";
+		this.levelName = "";
 		this.playerPoints = 0;
 		this.setPlayerHighScore();
 		this.setTimeStarted();

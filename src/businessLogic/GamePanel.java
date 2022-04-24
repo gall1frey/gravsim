@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private Player player;
 	private Level level;
-	private gameplayScreen screen = new gameplayScreen("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\background.png");
+	private gameplayScreen screen = new gameplayScreen("assets\\images\\misc\\background.png");
 	public enum gameState { PLAY, WIN, CRASH, SCOREBOARD, MENU, USER_MENU, CREATIVE, EXIT, CREATIVE_MENU };
 //	private gameState state = gameState.USER_MENU;
 	private gameState state = gameState.MENU;
@@ -227,7 +227,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.state = usermenuHandler.handleUsermenu(keyH, this.player.getPlayerName());
 		
 		if (this.state == gameState.PLAY) {
-			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\play_frame.png");
+			this.screen.setPlayFrame("assets\\images\\misc\\play_frame.png");
 			this.player.setLevelName(this.level.getLevelName());
 			this.player.setTimeStarted();
 		}
@@ -291,7 +291,7 @@ public class GamePanel extends JPanel implements Runnable {
 			} else {
 				this.level.setLevelName(filePath);
 			}
-			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
+			this.screen.setPlayFrame("assets\\images\\misc\\creative_play_frame.png");
 		}
 	}
 	

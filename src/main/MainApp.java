@@ -15,7 +15,7 @@ public class MainApp {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("GravSim");
-
+		 //System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		GamePanel gamepanel = new GamePanel();
 		window.add(gamepanel);
 

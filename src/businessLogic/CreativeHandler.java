@@ -13,9 +13,9 @@ import businessLogic.GamePanel.gameState;
 public class CreativeHandler {
 	private static CreativeHandler handler = null;
 	String[] SpritePaths = {
-		"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet1.png",
-		"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet2.png",
-		"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet3.png"
+		"assets\\images\\planets\\planet1.png",
+		"assets\\images\\planets\\planet2.png",
+		"assets\\images\\planets\\planet3.png"
 	};
 
 	
