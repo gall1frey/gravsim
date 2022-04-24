@@ -9,7 +9,7 @@ public class keyHandler implements KeyListener {
 	//public enum letter {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
 	public boolean[] letterPressed = new boolean[26];
 	public boolean escPressed, enterPressed;
-	public boolean bkspPressed;
+	public boolean bkspPressed, fwSlashPressed, bkSlashPressed, dotPressed;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -43,6 +43,15 @@ public class keyHandler implements KeyListener {
 		}
 		if (code == KeyEvent.VK_BACK_SPACE) {
 			bkspPressed = true;
+		}
+		if (code == KeyEvent.VK_BACK_SLASH) {
+			bkSlashPressed = true;
+		}
+		if (code == KeyEvent.VK_SLASH) {
+			fwSlashPressed = true;
+		}
+		if (code == KeyEvent.VK_PERIOD) {
+			dotPressed = true;
 		}
 	}
 
@@ -78,6 +87,15 @@ public class keyHandler implements KeyListener {
 		}
 		if (code == KeyEvent.VK_BACK_SPACE) {
 			bkspPressed = false;
+		}
+		if (code == KeyEvent.VK_BACK_SLASH) {
+			bkSlashPressed = false;
+		}
+		if (code == KeyEvent.VK_SLASH) {
+			fwSlashPressed = false;
+		}
+		if (code == KeyEvent.VK_PERIOD) {
+			dotPressed = false;
 		}
 	}
 	

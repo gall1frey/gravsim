@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import Controllers.keyHandler;
 import Models.Level;
 import Models.Player;
+import UI.CreativeMenuUI;
 import UI.CreativeUI;
 import UI.MessageUI;
 import UI.PlayGameUI;
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private MenuUI menuUI;
 	private UsermenuUI usermenuUI;
 	private ScoreboardUI scrbrdUI;
+	private CreativeMenuUI cmenuUI;
 
 	private PlayHandler playHandler;
 	private CreativeHandler creativeHandler;
@@ -68,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.creativeHandler = CreativeHandler.getInstance();
 		this.scoreboardHandler = ScoreboardHandler.getInstance();
 		this.usermenuHandler = UsermenuHandler.getInstance();
+		this.cmenuUI = CreativeMenuUI.getInstance();
 		Player[] topFive = new Player[5];
 	}
 
@@ -112,6 +115,8 @@ public class GamePanel extends JPanel implements Runnable {
 			handleEndGameKeypress();
 		} else if (this.state == gameState.EXIT) {
 			handleExit();
+		} else if (this.state == gameState.CREATIVE_MENU) {
+			handleCreativeMenuKeypress();
 		} else if (this.state == gameState.CREATIVE) {
 			handleCommonPlayKeypress();
 			if (this.player != null && this.level != null)
@@ -141,6 +146,11 @@ public class GamePanel extends JPanel implements Runnable {
 			this.msgUI.draw(g2, screenHeight, screenWidth, true, this.player);
 		} else if (this.state == gameState.CREATIVE) {
 			this.creativeUI.draw(this.player.updateTimePlayed(), g2, screen, level);
+		} else if (this.state == gameState.CREATIVE_MENU) {
+			if (this.player != null)
+				this.cmenuUI.draw(g2, this.player.getLevelName());
+			else
+				this.cmenuUI.draw(g2, "");
 		}
 		g2.dispose();
 	}
@@ -211,7 +221,7 @@ public class GamePanel extends JPanel implements Runnable {
 				this.keyH.letterPressed[this.keyH.getLetterCode((char)(i+'A'))] = false;
 			}
 		}
-		if (this.keyH.bkspPressed) {
+		if (this.keyH.bkspPressed && player_name.length() > 0) {
 			player_name = player_name.substring(0, player_name.length() - 1);
 			this.keyH.bkspPressed = false;
 		}
@@ -223,11 +233,6 @@ public class GamePanel extends JPanel implements Runnable {
 			this.player.setLevelName(this.level.getLevelName());
 			this.player.setTimeStarted();
 		}
-		
-		if (this.state == gameState.CREATIVE) {
-			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
-		}
-
 	}
 
 	private void handleMenuKeypress() {
@@ -239,6 +244,7 @@ public class GamePanel extends JPanel implements Runnable {
 			this.state = gameState.SCOREBOARD;
 		} else if (this.keyH.letterPressed[this.keyH.getLetterCode('C')] == true) {
 			this.state = gameState.CREATIVE_MENU;
+			this.keyH.letterPressed[this.keyH.getLetterCode('C')] = false;
 		} else if (this.keyH.escPressed == true) {
 			this.state = gameState.EXIT;
 		}
@@ -246,6 +252,44 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private void showScoreboard() {
 		this.topFive = this.scoreboardHandler.getTopFive();
+	}
+	
+	private void handleCreativeMenuKeypress() {
+		this.player = Player.getInstance();
+		String filePath = this.player.getLevelName();
+		for (int i = 0; i < 26; i++) {
+			if (this.keyH.letterPressed[this.keyH.getLetterCode((char)(i+'A'))]) {
+				filePath += String.valueOf((char)(i+'A'));
+				this.keyH.letterPressed[this.keyH.getLetterCode((char)(i+'A'))] = false;
+			}
+		}
+		if (this.keyH.bkspPressed && filePath.length() > 0) {
+			filePath = filePath.substring(0, filePath.length() - 1);
+			this.keyH.bkspPressed = false;
+		}
+		if (this.keyH.bkSlashPressed) {
+			filePath += "\\";
+			this.keyH.bkSlashPressed = false;
+		}
+		if (this.keyH.fwSlashPressed) {
+			filePath += "/";
+			this.keyH.fwSlashPressed = false;
+		}
+		if (this.keyH.dotPressed) {
+			filePath += ".";
+			this.keyH.dotPressed = false;
+		}
+		this.player.setLevelName(filePath);
+		this.state = this.creativeHandler.handleCreativeMenu(keyH, filePath);
+		if (this.state == gameState.CREATIVE && filePath.length() > 0) {
+			this.level = this.creativeHandler.getLevel(filePath);
+			if (this.level == null) {
+				this.state = gameState.CREATIVE_MENU;
+			} else {
+				this.level.setLevelName(filePath);
+			}
+			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
+		}
 	}
 	
 }

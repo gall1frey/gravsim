@@ -4,18 +4,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import Controllers.keyHandler;
 import Models.Entity;
 import Models.Level;
 import Models.Planet;
+import businessLogic.GamePanel.gameState;
 
 public class CreativeHandler {
 	private static CreativeHandler handler = null;
 	String[] SpritePaths = {
-		"C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\Main Project Folder\\gravsim\\assets\\images\\planets\\planet1.png",
-		"C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\Main Project Folder\\gravsim\\assets\\images\\planets\\planet2.png",
-		"C:\\Users\\MoHarris\\OneDrive\\University Files\\PES University Class Works\\Sem-6\\Object Oriented Analysis and Design\\OOAD Project\\Main Project Folder\\gravsim\\assets\\images\\planets\\planet3.png"
+		"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet1.png",
+		"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet2.png",
+		"C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet3.png"
 	};
-	int randomIndex = (int) ((Math.random() * (2 - 0)) + 0);
+
 	
 	private CreativeHandler() {}
 	
@@ -48,6 +50,7 @@ public class CreativeHandler {
 	}
 	
 	private String getRandomSpritePath() {
+		int randomIndex = (int) ((Math.random() * (SpritePaths.length - 0)) + 0);
 		return SpritePaths[randomIndex];
 	}	
 	
@@ -71,6 +74,17 @@ public class CreativeHandler {
 		}
 		Level l = new Level("CreativeLevel", entityList, false, true, 100000000);
 		return l;
+	}
+
+	public gameState handleCreativeMenu(keyHandler keyH, String filePath) {
+		gameState state = gameState.CREATIVE_MENU;
+		if (keyH.enterPressed == true && filePath.length() > 0) {
+			state = gameState.CREATIVE;
+		} else if (keyH.escPressed == true) {
+			state = gameState.MENU;
+			keyH.escPressed = false;
+		}
+		return state;
 	}
 	
 }

@@ -168,6 +168,10 @@ public class Level implements Cloneable{
 	public String getLevelName() {
 		return this.levelName;
 	}
+	
+	public void setLevelName(String name) {
+		this.levelName = name;
+	}
 
 	public Entity[] getEntities() {
 		try {			
