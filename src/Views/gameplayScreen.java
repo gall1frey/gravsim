@@ -185,10 +185,12 @@ public class gameplayScreen {
 		time = physics.getRealWorldTime(time);
 		String timeString = String.format("%.2f", time);
 		String planetString = String.format("%03d", planetsInPlay);
+		String scaleString = "1 AU = "+String.format("%03d", (int)physics.scaleFactor);
 		g.setColor(cyan);
 		g.setFont(new Font("Agency FB", Font.PLAIN, 50));
 		g.drawString(timeString,533,80);
 		g.drawString(planetString,35,80);
+		g.drawString(scaleString, 235, 80);
 		String timeUnits = "yrs";
 		g.setFont(new Font("Agency FB", Font.PLAIN, 20));
 		g.drawString(timeUnits, 613, 80);
