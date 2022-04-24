@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.scoreboardHandler = ScoreboardHandler.getInstance();
 		this.usermenuHandler = UsermenuHandler.getInstance();
 		this.cmenuUI = CreativeMenuUI.getInstance();
-		Player[] topFive = new Player[5];
+		topFive = new Player[5];
 	}
 
 	public void startGameThread() {
