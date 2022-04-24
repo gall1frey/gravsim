@@ -212,9 +212,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	private void handleUserMenuKeypress() {
-		this.player = Player.getInstance();
 		String player_name = this.player.getPlayerName();
-		this.level  = LevelCatalogue.getInstance(0);
 		for (int i = 0; i < 26; i++) {
 			if (this.keyH.letterPressed[this.keyH.getLetterCode((char)(i+'A'))]) {
 				player_name += String.valueOf((char)(i+'A'));
@@ -239,11 +237,17 @@ public class GamePanel extends JPanel implements Runnable {
 		// TODO Auto-generated method stub
 		if (this.keyH.letterPressed[this.keyH.getLetterCode('P')]) {
 			this.state = gameState.USER_MENU;
+			this.player = Player.getNewInstance();
+			LevelCatalogue.resetInstance();
+			this.level  = LevelCatalogue.getInstance(0);
+			this.screen.resetScreen();
 			LevelCatalogue.resetInstance();
 		} else if (this.keyH.letterPressed[this.keyH.getLetterCode('S')] == true) {
 			this.state = gameState.SCOREBOARD;
 		} else if (this.keyH.letterPressed[this.keyH.getLetterCode('C')] == true) {
 			this.state = gameState.CREATIVE_MENU;
+			this.player = Player.getNewInstance();
+			this.screen.resetScreen();
 			this.keyH.letterPressed[this.keyH.getLetterCode('C')] = false;
 		} else if (this.keyH.escPressed == true) {
 			this.state = gameState.EXIT;
@@ -255,7 +259,6 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	private void handleCreativeMenuKeypress() {
-		this.player = Player.getInstance();
 		String filePath = this.player.getLevelName();
 		for (int i = 0; i < 26; i++) {
 			if (this.keyH.letterPressed[this.keyH.getLetterCode((char)(i+'A'))]) {

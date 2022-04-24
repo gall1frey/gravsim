@@ -91,6 +91,12 @@ public class gameplayScreen {
 		g.drawImage(background, 0, 0, observer);
 	}
 
+	public void resetScreen() {
+		offsetX = 0;
+		offsetY = 0;
+		physics.updateScale(250);
+	}
+	
 	public void renderEntities(Entity[] entities_list, boolean rocket_exists, Graphics2D g, GamePanel observer) {
 		for (int i = entities_list.length-1; i >= 0; i--) {
 			if (entities_list[i].getClass() == Planet.class) {
