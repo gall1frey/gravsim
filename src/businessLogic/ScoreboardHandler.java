@@ -24,7 +24,7 @@ public class ScoreboardHandler {
 	private static long score_count;
 
 	private ScoreboardHandler() {
-		client = MongoClients.create("MONGODB CONN STRING");
+		client = MongoClients.create("INSERT CONN STRING HERE");
 		db = client.getDatabase("gravSim");
 		col = db.getCollection("playerData");
 		score_count = col.countDocuments();

@@ -12,7 +12,7 @@ public class PlayHandler {
 	
 	public gameState handlePlay(keyHandler keyH, Level level, Player player, gameState state) {
 		int res = level.update();
-		player.setPlayerPoints((int)((level.getTimeAllowed() - player.getTimePlayed())/100));
+		player.setPlayerPoints((int)((level.getTimeAllowed() - player.getTimePlayed())/100 * level.getFuelPercent()/100));
 		if (res == -1) {
 			state = gameState.CRASH;
 		} else if (res == 1) {
