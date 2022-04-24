@@ -23,8 +23,7 @@ public class Player {
 		return instance;
 	}
 	
-	private Player() {
-		System.out.println("Player [14]: New Player Created.");
+	public Player() {
 		this.playerName = "";
 		this.playerPoints = 0;
 		this.setPlayerHighScore();
@@ -86,5 +85,10 @@ public class Player {
 
 	public void setTimePlayed(long timePlayed) {
 		this.timePlayed = timePlayed;
+	}
+
+	public void setPlayerHighScore(int score) {
+		this.playerHighScore = score;
+		
 	}
 }

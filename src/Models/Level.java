@@ -11,7 +11,6 @@ public class Level implements Cloneable{
 	private long timeAllowed; // in milliseconds
 
 	public Level(String name, Entity[] objects, boolean rocket_move, boolean planets_move, long timeAllowed) {
-		System.out.println("Level [14]: New Level Created.");
 		this.levelName = name;
 		// First entity is rocket. Rest are planets.
 		this.setEntities(objects);

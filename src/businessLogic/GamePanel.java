@@ -47,6 +47,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private ScoreboardHandler scoreboardHandler;
 	private UsermenuHandler usermenuHandler;
 
+	private Player[] topFive = null;
+	
 	int FPS = 60;
 
 	public GamePanel() {
@@ -66,6 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.creativeHandler = CreativeHandler.getInstance();
 		this.scoreboardHandler = ScoreboardHandler.getInstance();
 		this.usermenuHandler = UsermenuHandler.getInstance();
+		Player[] topFive = new Player[5];
 	}
 
 	public void startGameThread() {
@@ -131,7 +134,8 @@ public class GamePanel extends JPanel implements Runnable {
 				this.usermenuUI.draw(g2,this.player.getPlayerName());
 			}
 		} else if (this.state == gameState.SCOREBOARD) {
-			this.scrbrdUI.draw(g2);
+			showScoreboard();
+			this.scrbrdUI.draw(g2,topFive);
 //			showScoreboard();
 		} else if (this.state == gameState.WIN) {
 			this.msgUI.draw(g2, screenHeight, screenWidth, true, this.player);
@@ -177,6 +181,12 @@ public class GamePanel extends JPanel implements Runnable {
 		// TODO Auto-generated method stub
 		// X pressed = quit
 		// M pressed = menu
+		
+		if (this.state == gameState.WIN) {
+			//System.out.println("GAMEPANEL WIN");
+			scoreboardHandler.addToDb(this.player.getPlayerName(), this.player.getLevelName(), this.player.getPlayerPoints());
+		}
+		
 		if (this.keyH.escPressed == true) {
 			this.state = gameState.EXIT;
 		}
@@ -193,9 +203,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private void handleUserMenuKeypress() {
 		this.player = Player.getInstance();
-		this.level  = LevelCatalogue.getInstance(0);
-		this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\play_frame.png");
 		String player_name = this.player.getPlayerName();
+		this.level  = LevelCatalogue.getInstance(0);
 		for (int i = 0; i < 26; i++) {
 			if (this.keyH.letterPressed[this.keyH.getLetterCode((char)(i+'A'))]) {
 				player_name += String.valueOf((char)(i+'A'));
@@ -207,7 +216,13 @@ public class GamePanel extends JPanel implements Runnable {
 			this.keyH.bkspPressed = false;
 		}
 		this.player.setPlayerName(player_name);
-		this.state = usermenuHandler.handleUsermenu(keyH, state, this.player.getPlayerName());
+		this.state = usermenuHandler.handleUsermenu(keyH, this.player.getPlayerName());
+		
+		if (this.state == gameState.PLAY) {
+			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\play_frame.png");
+			this.player.setLevelName(this.level.getLevelName());
+			this.player.setTimeStarted();
+		}
 		
 		if (this.state == gameState.CREATIVE) {
 			this.screen.setPlayFrame("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\creative_play_frame.png");
@@ -229,5 +244,8 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 
-
+	private void showScoreboard() {
+		this.topFive = this.scoreboardHandler.getTopFive();
+	}
+	
 }
