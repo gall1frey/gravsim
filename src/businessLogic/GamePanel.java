@@ -193,7 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
 		// M pressed = menu
 		
 		if (this.state == gameState.WIN) {
-			//System.out.println("GAMEPANEL WIN");
+			this.player.setPlayerHighScore(scoreboardHandler.getHighScore(this.player.getPlayerName()));
 			scoreboardHandler.addToDb(this.player.getPlayerName(), this.player.getLevelName(), this.player.getPlayerPoints());
 		}
 		

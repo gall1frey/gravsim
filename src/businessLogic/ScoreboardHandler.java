@@ -24,7 +24,7 @@ public class ScoreboardHandler {
 	private static long score_count;
 
 	private ScoreboardHandler() {
-		client = MongoClients.create("INSERT CONN STRING HERE");
+		client = MongoClients.create("<MONGODB CONN STR>");
 		db = client.getDatabase("gravSim");
 		col = db.getCollection("playerData");
 		score_count = col.countDocuments();
@@ -81,5 +81,17 @@ public class ScoreboardHandler {
 		      count++;
 		}
 		return players;
+	}
+
+	public int getHighScore(String name) {
+		List<Document> scores = new ArrayList<>();
+		col.find(eq("Name", name)).into(scores);
+		int highScore = 0;
+		for (Document score : scores) {
+			if (score.getInteger("points") > highScore) {
+				highScore = score.getInteger("points");
+			}
+		}
+		return highScore;
 	}
 }
