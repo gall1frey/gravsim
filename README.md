@@ -69,14 +69,7 @@ And watch your configuration of a solar system come to life!
 * Unit of angle across the project is **radians**.
 
 ### Todo
-1. Draw planet and rocket trails **--> NOT WORKING, I GIVE UP!**
-2. Refactor code into proper classes **--> Optional, as long as we can bluff well during presentation**
-3. Implement scoreboard
-4. Implement menu screen
-5. Create new levels **--> Mallika**
-6. Update documentation to show all classes **--> Everyone**
-7. Move background with pan/zoom if possible **--> Mallika**
-8. Store all images in a db
+1. Create new levels 
 
 ### Class Design
 #### Models

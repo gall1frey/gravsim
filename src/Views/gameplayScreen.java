@@ -97,6 +97,29 @@ public class gameplayScreen {
 		physics.updateScale(250);
 	}
 	
+	public void renderEntities(Planet goalPlanet, Entity[] entities_list, boolean rocket_exists, Graphics2D g, GamePanel observer) {
+		for (int i = entities_list.length-1; i >= 0; i--) {
+			if (entities_list[i].getClass() == Planet.class) {
+				Planet p = (Planet) entities_list[i];
+				renderTrail(p.trail, g);
+				Image image_to_render = p.getPlanetSprite();
+				int[] position = st_instance.convertPosToPixel(p.getPos()[0], p.getPos()[1], p.radius, offsetX, offsetY);
+				g.drawImage(image_to_render, position[0], position[1], position[2]*2, position[2]*2, observer);
+				if (p == goalPlanet) {
+					g.setColor(cyan);
+					g.drawOval(position[0], position[1], position[2]*2, position[2]*2);
+				}
+
+			} else if (entities_list[i].getClass() == Rocket.class && rocket_exists){
+				Rocket r = (Rocket) entities_list[i];
+				renderTrail(r.trail,g);
+				Image rocket_img = rotate((BufferedImage) r.sprite,physics.getAngle(r.getVel()[0], r.getVel()[1])+Math.PI/2);
+				int[] rocket_pos = st_instance.convertPosToPixel(r.getPos()[0], r.getPos()[1], r.radius, offsetX, offsetY);
+				g.drawImage(rocket_img, rocket_pos[0], rocket_pos[1], rocket_pos[2]*2, rocket_pos[2]*2, observer);
+			}
+		}
+	}
+	
 	public void renderEntities(Entity[] entities_list, boolean rocket_exists, Graphics2D g, GamePanel observer) {
 		for (int i = entities_list.length-1; i >= 0; i--) {
 			if (entities_list[i].getClass() == Planet.class) {
@@ -105,7 +128,6 @@ public class gameplayScreen {
 				Image image_to_render = p.getPlanetSprite();
 				int[] position = st_instance.convertPosToPixel(p.getPos()[0], p.getPos()[1], p.radius, offsetX, offsetY);
 				g.drawImage(image_to_render, position[0], position[1], position[2]*2, position[2]*2, observer);
-
 			} else if (entities_list[i].getClass() == Rocket.class && rocket_exists){
 				Rocket r = (Rocket) entities_list[i];
 				renderTrail(r.trail,g);
@@ -120,7 +142,6 @@ public class gameplayScreen {
 		// This function works. Setting the trail is the problem.
 		g.setColor(cyan);
 		if (t.pathTravelled.size() >= 2) {
-			System.out.println("gameplayScreen [127]: HERE!");
 			int[] x = new int[t.pathTravelled.size()];
 			int[] y = new int[t.pathTravelled.size()];
 			for (int i = 0; i < t.pathTravelled.size(); i++) {

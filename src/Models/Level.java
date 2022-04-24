@@ -6,8 +6,7 @@ public class Level implements Cloneable{
 	protected boolean rocketMove;
 	protected boolean planetsMove;
 	private Physics physics;
-	@SuppressWarnings("unused")
-	private Planet goalPlanet = null;
+	public Planet goalPlanet = null;
 	private long timeAllowed; // in milliseconds
 
 	public Level(String name, Entity[] objects, boolean rocket_move, boolean planets_move, long timeAllowed) {

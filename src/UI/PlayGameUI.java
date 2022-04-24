@@ -20,7 +20,7 @@ public class PlayGameUI {
 	
 	public void draw(Graphics2D g2, gameplayScreen screen, Level level, Player player) {
 		if (level != null) {
-			screen.renderEntities(level.getEntities(),level.isRocketMove(),g2,null);
+			screen.renderEntities(level.goalPlanet,level.getEntities(),level.isRocketMove(),g2,null);
 			screen.renderFuelBar(level.getFuelPercent(), g2);
 			screen.renderPlayDetails(level.getRocketVel(),level.getDistTravelled(),level.getDistToGo(),(float)player.getTimePlayed(),player.getPlayerPoints(), g2);
 		}
