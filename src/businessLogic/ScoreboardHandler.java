@@ -22,9 +22,9 @@ public class ScoreboardHandler {
 	private MongoDatabase db;
 	private MongoCollection<Document> col;
 	private static long score_count;
-	
+
 	private ScoreboardHandler() {
-		client = MongoClients.create("mongodb+srv://gallifrey:OYKJZlLn08dqEBGq@cluster0.6uadv.mongodb.net/gravSim?retryWrites=true&w=majority");
+		client = MongoClients.create("INSERT CONN STRING HERE");
 		db = client.getDatabase("gravSim");
 		col = db.getCollection("playerData");
 		score_count = col.countDocuments();
@@ -64,7 +64,7 @@ public class ScoreboardHandler {
 			}
 		} finally {}
 	}
-	
+
 	public Player[] getTopFive() {
 		Player[] players = new Player[5];
 		List<Document> results = new ArrayList<>();
