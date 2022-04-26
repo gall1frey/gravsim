@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
+
+import Controllers.DbController;
 import Controllers.keyHandler;
 import Models.Level;
 import Models.Player;
@@ -48,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private CreativeHandler creativeHandler;
 	private ScoreboardHandler scoreboardHandler;
 	private UsermenuHandler usermenuHandler;
+	private DbController dbController;
 
 	private Player[] topFive = null;
 	
@@ -71,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.scoreboardHandler = ScoreboardHandler.getInstance();
 		this.usermenuHandler = UsermenuHandler.getInstance();
 		this.cmenuUI = CreativeMenuUI.getInstance();
+		this.dbController = DbController.getInstance();
 		topFive = new Player[5];
 	}
 
@@ -193,8 +197,8 @@ public class GamePanel extends JPanel implements Runnable {
 		// M pressed = menu
 		
 		if (this.state == gameState.WIN) {
-			this.player.setPlayerHighScore(scoreboardHandler.getHighScore(this.player.getPlayerName()));
-			scoreboardHandler.addToDb(this.player.getPlayerName(), this.player.getLevelName(), this.player.getPlayerPoints());
+			this.player.setPlayerHighScore(dbController.getHighScore(this.player.getPlayerName()));
+			dbController.addToDb(this.player.getPlayerName(), this.player.getLevelName(), this.player.getPlayerPoints());
 		}
 		
 		if (this.keyH.escPressed == true) {
@@ -255,7 +259,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	private void showScoreboard() {
-		this.topFive = this.scoreboardHandler.getTopFive();
+		this.topFive = this.dbController.getTopFive();
 	}
 	
 	private void handleCreativeMenuKeypress() {
